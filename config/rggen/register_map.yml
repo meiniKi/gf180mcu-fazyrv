@@ -1,5 +1,5 @@
 register_blocks:
-  - name: GPIO
+  - name: wb_gpio
     byte_size: 12
     registers:
       - name: GPI
@@ -15,7 +15,7 @@ register_blocks:
           - { name: gpoe, bit_assignment: { width: 8 }, type: rw, initial_value: 0}
           - { name: reserved, bit_assignment: { width: 24 }, type: reserved }
 
-  - name: SPI
+  - name: wb_spi_conf
     byte_size: 4
     registers:
       - name: Cntrl

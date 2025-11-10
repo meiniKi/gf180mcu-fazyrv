@@ -2,6 +2,18 @@
 
 Project template for wafer.space MPW runs using the gf180mcu PDK.
 
+## Memory Map
+
+
+| Base Address | Name      | Description         |
+| ------------ | --------- | ------------------- |
+| 0x0000_0000  | XIP_ROM   | QSPI XIP ROM        |
+| 0x1000_0000  | QSPI_SRAM | QSPI SRAM           |
+| 0x2000_0000  | RAM       | On-Chip RAM         |
+| 0x3000_0000  | UART      | UART Peripheral     |
+| 0x4000_0000  | SPI       | SPI Peripheral      |
+| 0x5000_0000  | GPIO      | Chip GPIO Registers |
+
 ## Prerequisites
 
 We use a custom fork of the [gf180mcuD PDK variant](https://github.com/wafer-space/gf180mcu) until all changes have been upstreamed.
