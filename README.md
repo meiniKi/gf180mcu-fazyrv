@@ -1,9 +1,8 @@
-# gf180mcu Project Template
+# gf180mcu FazyRV globefish SoC
 
-Project template for wafer.space MPW runs using the gf180mcu PDK.
+FazyRV globefish SoC WiP.
 
 ## Memory Map
-
 
 | Base Address | Name      | Description         |
 | ------------ | --------- | ------------------- |

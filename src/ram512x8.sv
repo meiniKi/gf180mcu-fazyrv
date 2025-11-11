@@ -42,7 +42,7 @@ module ram512x8 (
 
 `else
 
-  logic [8:0] mem_r [0:511];
+  logic [7:0] mem_r [0:511];
 
   always @(posedge clk_i) begin
     dat_o <= mem_r[adr_i];
