@@ -42,13 +42,13 @@ async def enable_power(dut):
     dut.VDD.value = 1
     dut.VSS.value = 0
 
-async def start_clock(clock, freq=50):
+async def start_clock(clock, freq=100):
     """Start the clock @ freq MHz"""
     c = Clock(clock, 1 / freq * 1000, "ns")
     cocotb.start_soon(c.start())
 
 
-async def reset(reset, active_low=True, time_ns=1000):
+async def reset(reset, active_low=True, time_ns=1005):
     """Reset dut"""
     cocotb.log.info("Reset asserted...")
 

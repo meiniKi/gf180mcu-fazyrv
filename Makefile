@@ -51,8 +51,9 @@ sim: ## Run RTL simulation with cocotb
 	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 chip_top_tb.py
 .PHONY: sim
 
+#cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_toggle.py
 sim-globefish:
-	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_toggle.py
+	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_sram_simple.py
 .PHONY: sim-globefish
 
 

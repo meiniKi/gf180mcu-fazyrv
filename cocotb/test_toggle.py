@@ -19,9 +19,8 @@ first_test = True
 
 @cocotb.parametrize(core=[1,2,4,8])
 async def test_toggle(dut, core):
-    """Run the simple test"""
     global first_test
-    logger = logging.getLogger("test_toggle")
+    logger = logging.getLogger(TEST_MODULE)
     logger.info("Startup sequence...")
     await start_up(dut, core, from_reset=first_test)
     first_test = False
