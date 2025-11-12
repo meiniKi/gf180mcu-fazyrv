@@ -21,17 +21,17 @@
 module wb_ram #(
   parameter DEPTH=1024
 ) (
-  input  logic                            clk_i,
-  input  logic                            rst_in,
+  input  logic                          clk_i,
+  input  logic                          rst_in,
   // wishbone
-  input  logic                            wb_stb_i,
-  input  logic                            wb_cyc_i,
-  input  logic                            wb_we_i,
-  output logic                            wb_ack_o,
-  input  logic [3:0]                      wb_sel_i,
-  input  logic [31:0]                     wb_dat_i,
-  input  logic [$clog2(DEPTH/512+1)-1:0]  wb_adr_i, // word address
-  output logic [31:0]                     wb_dat_o
+  input  logic                          wb_stb_i,
+  input  logic                          wb_cyc_i,
+  input  logic                          wb_we_i,
+  output logic                          wb_ack_o,
+  input  logic [3:0]                    wb_sel_i,
+  input  logic [31:0]                   wb_dat_i,
+  input  logic [$clog2(DEPTH/512)+8:0]  wb_adr_i, // word address
+  output logic [31:0]                   wb_dat_o
 );
 
 localparam int NR_INSTANCES = (DEPTH + 511) / 512;
@@ -56,6 +56,7 @@ generate
       .VSS   ( VSS ),
       `endif
       .clk_i ( clk_i            ),
+      .cen_i ( ~rst_in          ),
       .wen_i ( wb_we_bank[i]    ),
       .sel_i ( wb_sel_i         ),
       .adr_i ( wb_adr_i[8:0]    ),
@@ -70,7 +71,7 @@ endgenerate
 logic wb_ack_r;
 
 always_ff @(posedge clk_i) begin
-  if (rst_in) begin
+  if (~rst_in) begin
     wb_ack_r <= 1'b0;
   end else begin
     wb_ack_r <= wb_cyc_i & wb_stb_i;

@@ -19,6 +19,7 @@ module ram512x32 (
   inout  wire          VSS,
   `endif
   input  logic         clk_i,
+  input  logic         cen_i,
   input  logic         wen_i,
   input  logic [ 3:0]  sel_i,
   input  logic [ 8:0]  adr_i,
@@ -35,6 +36,7 @@ generate
         .VSS( VSS              ),
       `endif
       .clk_i( clk_i            ),
+      .cen_i( cen_i            ),
       .wen_i( wen_i & sel_i[i] ),
       .adr_i( adr_i            ),
       .dat_i( dat_i[8*i+7:8*i] ),

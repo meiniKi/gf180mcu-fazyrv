@@ -120,6 +120,9 @@ void main(void)
   //pass();
 
   // Simple toggle output
-  GPO = 0xff;
-  GPO = 0x00;
+  while(1)
+  {
+    GPO = 0xff;
+    GPO = 0x00;
+  }
 }

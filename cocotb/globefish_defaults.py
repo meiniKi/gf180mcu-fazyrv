@@ -19,13 +19,24 @@ gl = os.getenv("GL", False)
 
 hdl_toplevel = "globefish_tb"
 
-simple_test = { 'firmware': '../firmware/simple/build/simple.hex' }
+async def set_defaults(dut, core):
+    assert core in [1,2,4,8]
+    dut.en_p.value = 1
+    dut.en_wb.value = 1
 
-enabled = simple_test
-
-async def set_defaults(dut):
-    #dut.input_PAD.value = 0
-    pass
+    dut.en_frv1.value = 0
+    dut.en_frv2.value = 0
+    dut.en_frv4.value = 0
+    dut.en_frv8.value = 0
+    
+    if core == 1:
+        dut.en_frv1.value = 1
+    if core == 2:
+        dut.en_frv2.value = 1
+    if core == 4:
+        dut.en_frv4.value = 1
+    if core == 8:
+        dut.en_frv8.value = 1
 
 async def enable_power(dut):
     dut.VDD.value = 1
@@ -48,30 +59,18 @@ async def reset(reset, active_low=True, time_ns=1000):
     cocotb.log.info("Reset deasserted.")
 
 
-async def start_up(dut):
+async def start_up(dut, core, from_reset=False):
     """Startup sequence"""
-    await set_defaults(dut)
+    await set_defaults(dut, core)
     if gl:
         await enable_power(dut)
     await start_clock(dut.clk)
-    await reset(dut.rst_n)
+    if from_reset:
+        await reset(dut.rst_n)
 
 
-@cocotb.test(skip=enabled!=simple_test)
-async def test_simple(dut):
-    """Run the simple test"""
-    logger = logging.getLogger("test_simple")
-    logger.info("Startup sequence...")
-    await start_up(dut)
-    logger.info("Running the test...")
 
-    # Wait for some time...
-    await ClockCycles(dut.clk, int(10000))
-
-    logger.info("Check Traces!")
-
-
-def chip_top_runner():
+def sim_setup(test_module, firmware):
 
     proj_path = Path(__file__).resolve().parent
 
@@ -94,6 +93,9 @@ def chip_top_runner():
         #sources.append(proj_path / "../src/chip_top.sv")
         #sources.append(proj_path / "../src/chip_core.sv")
         sources.append(proj_path / "../macros/frv_1/frv_1_nl.sv")
+        sources.append(proj_path / "../macros/frv_2/frv_2_nl.sv")
+        sources.append(proj_path / "../macros/frv_4/frv_4_nl.sv")
+        sources.append(proj_path / "../macros/frv_8/frv_8_nl.sv")
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_mux.v")
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_bit_field.v")
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_default_register.v")
@@ -161,15 +163,11 @@ def chip_top_runner():
         waves=True,
     )
 
-    plusargs = ['-fst', f'+firmware={enabled["firmware"]}']
+    plusargs = ['-fst', '+firmware={}'.format(os.path.abspath(firmware))]
 
     runner.test(
         hdl_toplevel=hdl_toplevel,
-        test_module="globefish_tb,",
+        test_module=test_module,
         plusargs=plusargs,
         waves=True,
     )
-
-
-if __name__ == "__main__":
-    chip_top_runner()

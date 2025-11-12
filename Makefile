@@ -52,7 +52,7 @@ sim: ## Run RTL simulation with cocotb
 .PHONY: sim
 
 sim-globefish:
-	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 globefish_tb.py
+	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_toggle.py
 .PHONY: sim-globefish
 
 

@@ -18,6 +18,7 @@ module ram512x8 (
   inout  wire         VSS,
   `endif
   input  logic        clk_i,
+  input  logic        cen_i,
   input  logic        wen_i,
   input  logic [8:0]  adr_i,
   input  logic [7:0]  dat_i,
@@ -32,7 +33,7 @@ module ram512x8 (
     .VSS  ( VSS     ),
     `endif
     .CLK  ( clk_i   ),
-    .CEN  ( 1'b0    ),
+    .CEN  ( cen_i   ),
     .GWEN ( ~wen_i  ),
     .WEN  ( 8'b0    ),
     .A    ( adr_i   ),

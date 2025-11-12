@@ -9,5 +9,5 @@
 #define ADR_CSR  ((volatile uint32_t*)(0x50000000))
 
 #define GPI      (*(ADR_CSR))
-#define GPO      (*(ADR_CSR+4UL))
-#define GPEN     (*(ADR_CSR+8UL))
+#define GPO      (*(ADR_CSR+1UL))
+#define GPEN     (*(ADR_CSR+2UL))

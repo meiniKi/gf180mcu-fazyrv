@@ -1,12 +1,12 @@
 // Copyright (c) 2025 Meinhard Kissich
 // SPDX-License-Identifier: MIT
 // -----------------------------------------------------------------------------
-// File  :  frv_1.sv
-// Usage :  Wrapper for frv_1 macro hardening.
+// File  :  frv_8.sv
+// Usage :  Wrapper for frv_8 macro hardening.
 // -----------------------------------------------------------------------------
 
 
-module frv_1 (
+module frv_8 (
   input  logic        clk_i,
   input  logic        rst_in,
 
@@ -26,9 +26,9 @@ module frv_1 (
   output logic [31:0] wb_dmem_dat_o
 );
 
-localparam CHUNKSIZE = 1;
+localparam CHUNKSIZE = 8;
 localparam CONF      = "MIN";
-localparam BOOTADR   = 'h10;
+localparam BOOTADR   = 'h40;
 localparam RFTYPE    = "LOGIC";
 
 fazyrv_top #(
@@ -36,7 +36,7 @@ fazyrv_top #(
   .CONF      ( CONF       ),
   .BOOTADR   ( BOOTADR    ),
   .RFTYPE    ( RFTYPE     )
-) i_fazyrv_top_1 (
+) i_fazyrv_top_8 (
   .clk_i         ( clk_i    ),
   .rst_in        ( rst_in   ),
   .tirq_i        ( 1'b0     ),

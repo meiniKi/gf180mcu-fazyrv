@@ -68,57 +68,6 @@ logic rst_c_frv_2_n;
 logic rst_c_frv_4_n;
 logic rst_c_frv_8_n;
 
-                     
-// mmmmm           m             mmm           mmm  ""#    #     
-// #   "#  mmm   mm#mm          #            m"   "   #    #   m 
-// #mmmm" #   "    #            ##           #        #    # m"  
-// #   "m  """m    #           #  #m#        #        #    #"#   
-// #    " "mmm"    "mm         "#mm#m         "mmm"   "mm  #  "m 
-//
-//################################################################                                                             
-                                                               
-
-assign rst_p_n        = rst_in;
-assign rst_wb_n       = rst_in;
-assign rst_c_frv_1_n  = rst_in; 
-assign rst_c_frv_2_n  = rst_in; 
-assign rst_c_frv_4_n  = rst_in; 
-assign rst_c_frv_8_n  = rst_in; 
-
-
-`ifdef NO_CLOCK_GATES_TODO
-localparam N_CLOCKS = 6;
-
-logic [N_CLOCKS-1:0] cg_enables;
-logic [N_CLOCKS-1:0] cg_clks;
-
-assign cg_enables = {en_p_i, en_wb_i, en_frv1_i, en_frv2_i, en_frv4_i, en_frv8_i};
-assign {clk_p, clk_wb, clk_c_frv_1, clk_c_frv_2, clk_c_frv_4, clk_c_frv_8} cg_clks;
-
-genvar i;
-generate
-  for (i = 0; i < N_CLOCKS; i = i + 1) begin : i_cg
-    gf180mcu_fd_sc_mcu7t5v0__icgtp_1 i_cg ( 
-      `ifdef USE_POWER_PINS
-      .VDD  ( VDD           ),
-      .VSS  ( VSS           ),
-      `endif
-      .TE   ( 1'b0          ),
-      .E    ( cg_enables[i] ),
-      .CLK  ( clk_i         ),
-      .Q    ( cg_clks[i]    )
-    );
-  end
-endgenerate
-
-`else
-  assign clk_p       = clk_i & en_p_i;
-  assign clk_wb      = clk_i & en_wb_i;
-  assign clk_c_frv_1 = clk_i & en_frv1_i;
-  assign clk_c_frv_2 = clk_i & en_frv2_i;
-  assign clk_c_frv_4 = clk_i & en_frv4_i;
-  assign clk_c_frv_8 = clk_i & en_frv8_i;
-`endif
 
 //  m     m   "                        
 //  #  #  # mmm     m mm   mmm    mmm  
@@ -352,6 +301,116 @@ logic [ 3:0] wb_p_uart_sel;
 
 logic uart_irq;
 
+
+                     
+// mmmmm           m             mmm           mmm  ""#    #     
+// #   "#  mmm   mm#mm          #            m"   "   #    #   m 
+// #mmmm" #   "    #            ##           #        #    # m"  
+// #   "m  """m    #           #  #m#        #        #    #"#   
+// #    " "mmm"    "mm         "#mm#m         "mmm"   "mm  #  "m 
+//
+//################################################################                                                             
+                                                               
+logic [4:0] rst_delay_cnt;
+logic       rst_in_sync;
+logic       rst_deassert;
+
+always_ff @(posedge clk_i or negedge rst_in) begin
+  if (!rst_in) begin
+    rst_delay_cnt <= '0;
+    rst_in_sync   <= 1'b0;
+  end else begin
+    if (rst_delay_cnt != 4'd15)
+      rst_delay_cnt <= rst_delay_cnt + 1'b1;
+    else
+      rst_in_sync <= 1'b1;
+  end
+end
+
+assign rst_wb_n       = rst_in;
+assign rst_p_n        = rst_in;
+assign rst_c_frv_1_n  = rst_in_sync;
+assign rst_c_frv_2_n  = rst_in_sync;
+assign rst_c_frv_4_n  = rst_in_sync;
+assign rst_c_frv_8_n  = rst_in_sync;
+
+
+//  mmm    mmmm 
+// #"  "  #" "# 
+// #      #   # 
+// "#mm"  "#m"# 
+//         m  # 
+//          "" 
+//############### 
+
+
+localparam N_CLOCKS = 6;
+
+// Sync clock gating such that once controller cannot block the bus
+logic en_frv1_sync_r;
+logic en_frv2_sync_r;
+logic en_frv4_sync_r;
+logic en_frv8_sync_r;
+
+always_ff @(posedge clk_i) begin
+  if (~rst_in) begin
+    en_frv1_sync_r <= 1'b1;
+    en_frv2_sync_r <= 1'b1;
+    en_frv4_sync_r <= 1'b1;
+    en_frv8_sync_r <= 1'b1;
+   end else begin
+    if (en_frv1_i)  en_frv1_sync_r <= 1'b1;
+    else            en_frv1_sync_r <= en_frv1_sync_r & wb_c_frv_1_stb;
+    if (en_frv2_i)  en_frv2_sync_r <= 1'b1;
+    else            en_frv2_sync_r <= en_frv2_sync_r & wb_c_frv_2_stb;
+    if (en_frv4_i)  en_frv4_sync_r <= 1'b1;
+    else            en_frv4_sync_r <= en_frv4_sync_r & wb_c_frv_4_stb;
+    if (en_frv8_i)  en_frv8_sync_r <= 1'b1;
+    else            en_frv8_sync_r <= en_frv8_sync_r & wb_c_frv_8_stb;
+  end
+end
+
+logic [N_CLOCKS-1:0] cg_enables;
+logic [N_CLOCKS-1:0] cg_clks;
+
+assign cg_enables = {en_p_i, en_wb_i, en_frv1_sync_r, en_frv2_sync_r, en_frv4_sync_r, en_frv8_sync_r};
+assign {clk_p, clk_wb, clk_c_frv_1, clk_c_frv_2, clk_c_frv_4, clk_c_frv_8} = cg_clks;
+
+`ifdef NO_CLOCK_GATES_TODO
+genvar i;
+generate
+  // TODO same reset behavior as below!
+  for (i = 0; i < N_CLOCKS; i = i + 1) begin : i_cg
+    gf180mcu_fd_sc_mcu7t5v0__icgtp_1 i_cg ( 
+      `ifdef USE_POWER_PINS
+      .VDD  ( VDD           ),
+      .VSS  ( VSS           ),
+      `endif
+      .TE   ( 1'b0          ),
+      .E    ( cg_enables[i] ),
+      .CLK  ( clk_i         ),
+      .Q    ( cg_clks[i]    )
+    );
+  end
+endgenerate
+
+`else
+  //assign clk_p       = clk_i & en_p_i;
+  //assign clk_wb      = clk_i & en_wb_i;
+  //assign clk_c_frv_1 = clk_i & en_frv1_sync_r;
+  //assign clk_c_frv_2 = clk_i & en_frv2_sync_r;
+  //assign clk_c_frv_4 = clk_i & en_frv4_sync_r;
+  //assign clk_c_frv_8 = clk_i & en_frv8_sync_r;
+genvar i;
+generate
+for (i = 0; i < N_CLOCKS; i = i + 1) begin : i_cg
+  assign cg_clks[i] = cg_enables[i] & clk_i;
+end
+endgenerate
+
+`endif
+
+
 //                                                                             
 // mmmmm                  "           #                           ""#          
 // #   "#  mmm    m mm  mmm    mmmm   # mm    mmm    m mm   mmm     #     mmm  
@@ -531,11 +590,11 @@ tiny_wb_dma_oled_spi #(
 // #    " #    # #    #
 //                     
                                     
-localparam RAM_DEPTH = 2048;     
+localparam RAM_DEPTH = 4096;     
 
-wb_ram #( .DEPTH(RAM_DEPTH) ) i_wb_ram (
-  .clk_i  ( clk_p   ),
-  .rst_in ( rst_p_n ),
+wb_ram #( .DEPTH( RAM_DEPTH ) ) i_wb_ram (
+  .clk_i  ( clk_p     ),
+  .rst_in ( rst_wb_n  ),
   // Wishbone
   .wb_stb_i ( wb_p_ram_stb  ),
   .wb_cyc_i ( wb_p_ram_cyc  ),
@@ -543,7 +602,7 @@ wb_ram #( .DEPTH(RAM_DEPTH) ) i_wb_ram (
   .wb_ack_o ( wb_p_ram_ack  ),
   .wb_sel_i ( wb_p_ram_sel  ),
   .wb_dat_i ( wb_p_ram_wdat ),
-  .wb_adr_i ( wb_p_ram_adr[$clog2(RAM_DEPTH/512+1)+1:2]), // word address
+  .wb_adr_i ( wb_p_ram_adr[$clog2(RAM_DEPTH/512)+10:2]), // word address
   .wb_dat_o ( wb_p_ram_rdat )
 );
 
@@ -577,40 +636,6 @@ frv_1 i_frv_1 (
   .wb_dmem_dat_o ( wb_c_frv_1_dmem_wdat )
 );
 
-
-// TODO: Just one controller for now
-//
-assign wb_c_frv_2_imem_stb  = 'b0; 
-assign wb_c_frv_2_imem_cyc  = 'b0;
-assign wb_c_frv_2_imem_adr  = 'b0;
-assign wb_c_frv_2_dmem_cyc  = 'b0;
-assign wb_c_frv_2_dmem_stb  = 'b0;
-assign wb_c_frv_2_dmem_we   = 'b0;
-assign wb_c_frv_2_dmem_be   = 'b0;
-assign wb_c_frv_2_dmem_adr  = 'b0;
-assign wb_c_frv_2_dmem_wdat = 'b0;
-
-assign wb_c_frv_4_imem_stb  = 'b0; 
-assign wb_c_frv_4_imem_cyc  = 'b0;
-assign wb_c_frv_4_imem_adr  = 'b0;
-assign wb_c_frv_4_dmem_cyc  = 'b0;
-assign wb_c_frv_4_dmem_stb  = 'b0;
-assign wb_c_frv_4_dmem_we   = 'b0;
-assign wb_c_frv_4_dmem_be   = 'b0;
-assign wb_c_frv_4_dmem_adr  = 'b0;
-assign wb_c_frv_4_dmem_wdat = 'b0;
-
-assign wb_c_frv_8_imem_stb  = 'b0; 
-assign wb_c_frv_8_imem_cyc  = 'b0;
-assign wb_c_frv_8_imem_adr  = 'b0;
-assign wb_c_frv_8_dmem_cyc  = 'b0;
-assign wb_c_frv_8_dmem_stb  = 'b0;
-assign wb_c_frv_8_dmem_we   = 'b0;
-assign wb_c_frv_8_dmem_be   = 'b0;
-assign wb_c_frv_8_dmem_adr  = 'b0;
-assign wb_c_frv_8_dmem_wdat = 'b0;
-
-/*
 frv_2 i_frv_2 (
   .clk_i         ( clk_c_frv_2   ),
   .rst_in        ( rst_c_frv_2_n ),
@@ -628,7 +653,7 @@ frv_2 i_frv_2 (
   .wb_dmem_be_o  ( wb_c_frv_2_dmem_be   ),
   .wb_dmem_dat_i ( wb_c_frv_2_dmem_rdat ),
   .wb_dmem_adr_o ( wb_c_frv_2_dmem_adr  ),
-  .wb_dmem_dat_o ( wb_c_frv_2_dmem_wdat ),
+  .wb_dmem_dat_o ( wb_c_frv_2_dmem_wdat )
 );
 
 frv_4 i_frv_4 (
@@ -648,7 +673,7 @@ frv_4 i_frv_4 (
   .wb_dmem_be_o  ( wb_c_frv_4_dmem_be   ),
   .wb_dmem_dat_i ( wb_c_frv_4_dmem_rdat ),
   .wb_dmem_adr_o ( wb_c_frv_4_dmem_adr  ),
-  .wb_dmem_dat_o ( wb_c_frv_4_dmem_wdat ),
+  .wb_dmem_dat_o ( wb_c_frv_4_dmem_wdat )
 );
 
 frv_8 i_frv_8 (
@@ -668,9 +693,9 @@ frv_8 i_frv_8 (
   .wb_dmem_be_o  ( wb_c_frv_8_dmem_be   ),
   .wb_dmem_dat_i ( wb_c_frv_8_dmem_rdat ),
   .wb_dmem_adr_o ( wb_c_frv_8_dmem_adr  ),
-  .wb_dmem_dat_o ( wb_c_frv_8_dmem_wdat ),
+  .wb_dmem_dat_o ( wb_c_frv_8_dmem_wdat )
 );
-*/
+
                                                         
 // mmmmm           m                                      
 //   #    m mm   mm#mm   mmm    m mm   mmm    mmm   m mm  
