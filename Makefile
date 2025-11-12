@@ -51,6 +51,11 @@ sim: ## Run RTL simulation with cocotb
 	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 chip_top_tb.py
 .PHONY: sim
 
+sim-globefish:
+	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 globefish_tb.py
+.PHONY: sim-globefish
+
+
 sim-gl: ## Run gate-level simulation with cocotb
 	cd cocotb; GL=1 PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 chip_top_tb.py
 .PHONY: sim-gl
@@ -63,3 +68,42 @@ copy-final: ## Copy final output files from the last run
 	rm -rf final/
 	cp -r librelane/runs/${RUN_TAG}/final/ final/
 .PHONY: copy-final
+
+
+SRC_SOC =   src/gen/CSR.v \
+			src/gen/wb_intercon.v \
+			src/ram512x8.sv \
+			src/ram512x32.sv \
+			src/wb_ram.sv \
+			src/wb_spi.sv \
+			src/wb_qspi_mem.sv \
+			src/tiny_wb_dma_oled_spi.sv \
+			macros/frv_1/frv_1_nl.sv \
+			src/globefish_soc.sv \
+			ip/rggen-verilog-rtl/rggen_adapter_common.v \
+			ip/rggen-verilog-rtl/rggen_wishbone_adapter.v \
+			ip/rggen-verilog-rtl/rggen_mux.v \
+			ip/rggen-verilog-rtl/rggen_bit_field.v \
+			ip/rggen-verilog-rtl/rggen_default_register.v \
+			ip/rggen-verilog-rtl/rggen_register_common.v \
+			ip/rggen-verilog-rtl/rggen_address_decoder.v \
+			ip/rggen-verilog-rtl/rggen_or_reducer.v \
+			ip/verilog-arbiter/src/arbiter.v \
+      		ip/wb_intercon/rtl/verilog/wb_cdc.v \
+      		ip/wb_intercon/rtl/verilog/wb_arbiter.v \
+      		ip/wb_intercon/rtl/verilog/wb_data_resize.v \
+      		ip/wb_intercon/rtl/verilog/wb_mux.v \
+			ip/EF_IP_UTIL/hdl/ef_util_lib.v \
+			ip/EF_UART/hdl/rtl/EF_UART.v \
+			ip/EF_UART/hdl/rtl/bus_wrappers/EF_UART_WB.v
+
+
+INC_SOC =   ip/rggen-verilog-rtl
+
+lint-soc-slang:
+	slang --lint-only -I$(INC_SOC) $(SRC_SOC)
+.PHONY: lint-soc-slang
+
+lint-soc-verilator:
+	verilator --lint-only -I$(INC_SOC) $(SRC_SOC)
+.PHONY: lint-soc-verilator

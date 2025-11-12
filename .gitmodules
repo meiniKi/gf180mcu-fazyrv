@@ -7,3 +7,12 @@
 [submodule "ip/EF_UART"]
 	path = ip/EF_UART
 	url = https://github.com/efabless/EF_UART.git
+[submodule "ip/rggen-verilog-rtl"]
+	path = ip/rggen-verilog-rtl
+	url = https://github.com/rggen/rggen-verilog-rtl.git
+[submodule "ip/verilog-arbiter"]
+	path = ip/verilog-arbiter
+	url = https://github.com/bmartini/verilog-arbiter.git
+[submodule "ip/EF_IP_UTIL"]
+	path = ip/EF_IP_UTIL
+	url = https://github.com/efabless/EF_IP_UTIL.git

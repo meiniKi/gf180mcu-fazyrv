@@ -572,7 +572,7 @@ frv_1 i_frv_1 (
   .wb_dmem_be_o  ( wb_c_frv_1_dmem_be   ),
   .wb_dmem_dat_i ( wb_c_frv_1_dmem_wdat ),
   .wb_dmem_adr_o ( wb_c_frv_1_dmem_adr  ),
-  .wb_dmem_dat_o ( wb_c_frv_1_dmem_rdat ),
+  .wb_dmem_dat_o ( wb_c_frv_1_dmem_rdat )
 );
 
 

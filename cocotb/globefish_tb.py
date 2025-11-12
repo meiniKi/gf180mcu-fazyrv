@@ -21,6 +21,7 @@ hdl_toplevel = "globefish_tb"
 
 simple_test = { 'firmware': '../firmware/simple/build/simple.hex' }
 
+enabled = simple_test
 
 async def set_defaults(dut):
     dut.input_PAD.value = 0
@@ -55,33 +56,18 @@ async def start_up(dut):
     await reset(dut.rst_n_PAD)
 
 
-@cocotb.test()
-async def test_counter(dut):
-    """Run the counter test"""
-
-    # Create a logger for this testbench
-    logger = logging.getLogger("my_testbench")
-
+@cocotb.test(skip=enabled!=simple_test)
+async def test_simple(dut):
+    """Run the simple test"""
+    logger = logging.getLogger("test_simple")
     logger.info("Startup sequence...")
-
-    # Start up
     await start_up(dut)
-
     logger.info("Running the test...")
 
     # Wait for some time...
-    await ClockCycles(dut.clk_PAD, 10)
+    await ClockCycles(dut.clk_PAD, int(10000))
 
-    # Start the counter by setting all inputs to 1
-    dut.input_PAD.value = -1
-
-    # Wait for a number of clock cycles
-    await ClockCycles(dut.clk_PAD, 100)
-
-    # Check the end result of the counter
-    assert dut.bidir_PAD.value == 100 - 1
-
-    logger.info("Done!")
+    logger.info("Check Traces!")
 
 
 def chip_top_runner():
@@ -90,7 +76,9 @@ def chip_top_runner():
 
     sources = []
     defines = {}
-    includes = []
+    includes = [
+        proj_path / "../ip/rggen-verilog-rtl"
+    ]
 
     if gl:
         # SCL models
@@ -102,8 +90,31 @@ def chip_top_runner():
 
         defines = {"FUNCTIONAL": True, "USE_POWER_PINS": True}
     else:
-        sources.append(proj_path / "../src/chip_top.sv")
-        sources.append(proj_path / "../src/chip_core.sv")
+        #sources.append(proj_path / "../src/chip_top.sv")
+        #sources.append(proj_path / "../src/chip_core.sv")
+        sources.append(proj_path / "../macros/frv_1/frv_1_nl.sv")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_mux.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_bit_field.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_default_register.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_adapter_common.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_register_common.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_wishbone_adapter.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_address_decoder.v")
+        sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_or_reducer.v")
+        sources.append(proj_path / "../src/gen/CSR.v")
+        sources.append(proj_path / "../ip/verilog-arbiter/src/arbiter.v")
+        sources.append(proj_path / "../ip/wb_intercon/rtl/verilog/wb_cdc.v")
+        sources.append(proj_path / "../ip/wb_intercon/rtl/verilog/wb_arbiter.v")
+        sources.append(proj_path / "../ip/wb_intercon/rtl/verilog/wb_data_resize.v")
+        sources.append(proj_path / "../ip/wb_intercon/rtl/verilog/wb_mux.v")        
+        sources.append(proj_path / "../src/gen/wb_intercon.v")
+        sources.append(proj_path / "../src/ram512x8.sv")
+        sources.append(proj_path / "../src/ram512x32.sv")
+        sources.append(proj_path / "../src/wb_ram.sv")
+        sources.append(proj_path / "../src/wb_spi.sv")
+        sources.append(proj_path / "../src/wb_qspi_mem.sv")
+        sources.append(proj_path / "../src/tiny_wb_dma_oled_spi.sv")
+        sources.append(proj_path / "../src/globefish_soc.sv")
 
     sources += [
         # IO pad models
@@ -117,8 +128,15 @@ def chip_top_runner():
         proj_path / "../ip/gf180mcu_ws_ip__id/vh/gf180mcu_ws_ip__id.v",
         proj_path / "../ip/gf180mcu_ws_ip__logo/vh/gf180mcu_ws_ip__logo.v",
         
-        # Testbench
-        #"globefish_tb.sv",
+        # UART IP
+        proj_path / "../ip/EF_IP_UTIL/hdl/ef_util_lib.v",
+        proj_path / "../ip/EF_UART/hdl/rtl/EF_UART.v",
+        proj_path / "../ip/EF_UART/hdl/rtl/bus_wrappers/EF_UART_WB.v",
+        
+        # Testbench and helpers
+        "spiflash.v",
+        "qspi_psram.sv",
+        "globefish_tb.sv",
     ]
 
     build_args = []
@@ -142,7 +160,7 @@ def chip_top_runner():
         waves=True,
     )
 
-    plusargs = []
+    plusargs = ['-fst', f'+firmware={enabled["firmware"]}']
 
     runner.test(
         hdl_toplevel=hdl_toplevel,
