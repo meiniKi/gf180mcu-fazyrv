@@ -28,6 +28,46 @@ DESIGN_NAME: chip_top
 VERILOG_FILES:
 - dir::../src/chip_top.sv
 - dir::../src/chip_core.sv
+- dir::../macros/frv_1/frv_1_nl.sv
+- dir::../macros/frv_2/frv_2_nl.sv
+- dir::../macros/frv_4/frv_4_nl.sv
+- dir::../macros/frv_8/frv_8_nl.sv
+- dir::../macros/frv_4ccx/frv_4ccx_nl.sv
+- dir::../ip/rggen-verilog-rtl/rggen_mux.v
+- dir::../ip/rggen-verilog-rtl/rggen_bit_field.v
+- dir::../ip/rggen-verilog-rtl/rggen_default_register.v
+- dir::../ip/rggen-verilog-rtl/rggen_adapter_common.v
+- dir::../ip/rggen-verilog-rtl/rggen_register_common.v
+- dir::../ip/rggen-verilog-rtl/rggen_wishbone_adapter.v
+- dir::../ip/rggen-verilog-rtl/rggen_address_decoder.v
+- dir::../ip/rggen-verilog-rtl/rggen_or_reducer.v
+- dir::../src/reset_sync.sv
+- dir::../src/gen/CSR.v
+- dir::../ip/verilog-arbiter/src/arbiter.v
+- dir::../ip/wb_intercon/rtl/verilog/wb_cdc.v
+- dir::../ip/wb_intercon/rtl/verilog/wb_arbiter.v
+- dir::../ip/wb_intercon/rtl/verilog/wb_data_resize.v
+- dir::../ip/wb_intercon/rtl/verilog/wb_mux.v    
+- dir::../src/gen/wb_intercon.v
+- dir::../src/ram512x8.sv
+- dir::../src/ram512x32.sv
+- dir::../src/wb_ram.sv
+- dir::../src/wb_spi.sv
+- dir::../src/wb_qspi_mem.sv
+- dir::../src/tiny_wb_dma_oled_spi.sv
+- dir::../src/globefish_soc.sv
+- dir::../ip/EF_IP_UTIL/hdl/ef_util_lib.v
+- dir::../ip/EF_UART/hdl/rtl/EF_UART.v
+- dir::../ip/EF_UART/hdl/rtl/bus_wrappers/EF_UART_WB.v
+- dir::../ip/EF_SPI/hdl/rtl/spi_master.v
+- dir::../ip/EF_SPI/hdl/rtl/EF_SPI.v
+- dir::../ip/EF_SPI/hdl/rtl/bus_wrappers/EF_SPI_WB.v
+- dir::../ip/ahb3lite_wb_bridge/wb_to_ahb3lite.v
+- dir::../ip/MS_QSPI_XIP_CACHE/hdl/rtl/MS_QSPI_XIP_CACHE.v
+- dir::../ip/MS_QSPI_XIP_CACHE/hdl/rtl/bus_wrappers/MS_QSPI_XIP_CACHE_ahbl.v
+
+VERILOG_INCLUDE_DIRS:
+- dir::../ip/rggen-verilog-rtl
 
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True
@@ -267,6 +307,102 @@ MACROS:
         location: [3762.75, 4952.75]
         orientation: N
 
+  # TODO: pdc for controller macros!!!!
+  frv_1:
+    gds:
+      - dir::../macros/frv_1/final/gds/frv_1.gds
+    lef:
+      - dir::../macros/frv_1/final/lef/frv_1.lef
+    vh:
+      - dir::../macros/frv_1/final/vh/frv_1.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_1/final/lib/max_tt_025C_5v00/frv_1__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_1/final/lib/max_ff_n40C_5v50/frv_1__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_1/final/lib/max_ss_125C_4v50/frv_1__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_1:
+        location: [600, 3500]
+        orientation: N
+
+  frv_2:
+    gds:
+      - dir::../macros/frv_2/final/gds/frv_2.gds
+    lef:
+      - dir::../macros/frv_2/final/lef/frv_2.lef
+    vh:
+      - dir::../macros/frv_2/final/vh/frv_2.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_2/final/lib/max_tt_025C_5v00/frv_2__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_2/final/lib/max_ff_n40C_5v50/frv_2__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_2/final/lib/max_ss_125C_4v50/frv_2__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_2:
+        location: [1100, 3500]
+        orientation: N
+
+  frv_4:
+    gds:
+      - dir::../macros/frv_4/final/gds/frv_4.gds
+    lef:
+      - dir::../macros/frv_4/final/lef/frv_4.lef
+    vh:
+      - dir::../macros/frv_4/final/vh/frv_4.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_4/final/lib/max_tt_025C_5v00/frv_4__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_4/final/lib/max_ff_n40C_5v50/frv_4__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_4/final/lib/max_ss_125C_4v50/frv_4__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_4:
+        location: [1600, 3500]
+        orientation: N
+
+  frv_8:
+    gds:
+      - dir::../macros/frv_8/final/gds/frv_8.gds
+    lef:
+      - dir::../macros/frv_8/final/lef/frv_8.lef
+    vh:
+      - dir::../macros/frv_8/final/vh/frv_8.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_8/final/lib/max_tt_025C_5v00/frv_8__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_8/final/lib/max_ff_n40C_5v50/frv_8__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_8/final/lib/max_ss_125C_4v50/frv_8__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_8:
+        location: [2300, 3500]
+        orientation: N
+
+  frv_4ccx:
+    gds:
+      - dir::../macros/frv_4ccx/final/gds/frv_4ccx.gds
+    lef:
+      - dir::../macros/frv_4ccx/final/lef/frv_4ccx.lef
+    vh:
+      - dir::../macros/frv_4ccx/final/vh/frv_4ccx.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_4ccx/final/lib/max_tt_025C_5v00/frv_4ccx__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_4ccx/final/lib/max_ff_n40C_5v50/frv_4ccx__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_4ccx/final/lib/max_ss_125C_4v50/frv_4ccx__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_4ccx:
+        location: [3000, 3500]
+        orientation: N
+
   gf180mcu_fd_ip_sram__sram512x8m8wm1:
     gds:
       - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/gds/gf180mcu_fd_ip_sram__sram512x8m8wm1.gds
@@ -283,12 +419,30 @@ MACROS:
         - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/lib/gf180mcu_fd_ip_sram__sram512x8m8wm1__ss_125C_4v50.lib
     instances:
       # Make sure to specify the SRAMs in pdn_cfg.tcl
-      i_chip_core.sram_0:
-        location: [500, 501]
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[0].u_ram:
+        location: [500, 1500]
         orientation: N
-      i_chip_core.sram_1:
-        location: [1000, 501]
-        orientation: E
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[1].u_ram:
+        location: [1000, 1500]
+        orientation: N
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[2].u_ram:
+        location: [1500, 1500]
+        orientation: N
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[3].u_ram:
+        location: [2000, 1500]
+        orientation: N
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[0].u_ram:
+        location: [500, 2000]
+        orientation: N
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[1].u_ram:
+        location: [1000, 2000]
+        orientation: N
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[2].u_ram:
+        location: [1500, 2000]
+        orientation: N
+      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[3].u_ram:
+        location: [2000, 2000]
+        orientation: N
 
 # This is an alternative method compared to
 # specifying the power connections in the RTL

@@ -157,15 +157,15 @@ assign bidir_pd[7]    = '0;  // no pull
 assign bidir_out[7]   = uart_tx;
 
 // - rx
-assign bidir_oe[7]    = '0;  // input
-assign bidir_cs[7]    = '0;  // cmos buffer 
-assign bidir_sl[7]    = '1;  // fast slew rate
-assign bidir_ie[7]    = '1;  // input enable
-assign bidir_pu[7]    = '1;  // pull up
-assign bidir_pd[7]    = '0;  // no pull
+assign bidir_oe[8]    = '0;  // input
+assign bidir_cs[8]    = '0;  // cmos buffer 
+assign bidir_sl[8]    = '1;  // fast slew rate
+assign bidir_ie[8]    = '1;  // input enable
+assign bidir_pu[8]    = '1;  // pull up
+assign bidir_pd[8]    = '0;  // no pull
 
-assign uart_rx        = bidir_in[7];
-assign bidir_out[7]   = '1;  // don't care; 1
+assign uart_rx        = bidir_in[8];
+assign bidir_out[8]   = '1;  // don't care; 1
 
 // ### SPI OLED: NUM_BIDIR_PADS[10:9]
 // ########################################

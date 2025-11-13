@@ -21,6 +21,10 @@
 module wb_ram #(
   parameter DEPTH=1024
 ) (
+  `ifdef USE_POWER_PINS
+  inout  wire                           VDD,
+  inout  wire                           VSS,
+  `endif
   input  logic                          clk_i,
   input  logic                          rst_in,
   // wishbone

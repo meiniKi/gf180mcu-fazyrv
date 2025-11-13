@@ -437,13 +437,13 @@ always_ff @(posedge clk_i or negedge rst_sync_n) begin
   end
 end
 
-assign rst_wb_n       = rst_sync_n;
-assign rst_p_n        = rst_sync_n;
-assign rst_c_frv_1_n  = rst_dly_n;
-assign rst_c_frv_2_n  = rst_dly_n;
-assign rst_c_frv_4_n  = rst_dly_n;
-assign rst_c_frv_8_n  = rst_dly_n;
-
+assign rst_wb_n         = rst_sync_n;
+assign rst_p_n          = rst_sync_n;
+assign rst_c_frv_1_n    = rst_dly_n;
+assign rst_c_frv_2_n    = rst_dly_n;
+assign rst_c_frv_4_n    = rst_dly_n;
+assign rst_c_frv_8_n    = rst_dly_n;
+assign rst_c_frv_4ccx_n = rst_dly_n;
 
 //  mmm    mmmm 
 // #"  "  #" "# 
@@ -793,11 +793,15 @@ tiny_wb_dma_oled_spi #(
 //          #    " #    # #    #
 //                     
                                     
-localparam RAM_DEPTH = 2048; // words  
+localparam RAM_DEPTH = 1024; // words  
 
 wb_ram #( .DEPTH( RAM_DEPTH ) ) i_wb_ram (
-  .clk_i  ( clk_p     ),
-  .rst_in ( rst_wb_n  ),
+  `ifdef USE_POWER_PINS
+  .VDD      ( VDD           ),
+  .VSS      ( VSS           ),
+  `endif
+  .clk_i    ( clk_p         ),
+  .rst_in   ( rst_wb_n      ),
   // Wishbone
   .wb_stb_i ( wb_p_ram_stb  ),
   .wb_cyc_i ( wb_p_ram_cyc  ),
