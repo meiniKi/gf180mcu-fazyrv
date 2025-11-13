@@ -195,36 +195,402 @@ add_pdn_connect \
 
 # SRAM macros
 
-#define_pdn_grid \
-#    -macro \
-#    -instances i_chip_core.sram_0 \
-#    -name sram_macros_NS \
-#    -starts_with POWER \
-#    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[0].u_ram.sram_0 \
+    -name sram_macro_0_0 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
 
-#add_pdn_connect \
-#    -grid sram_macros_NS \
-#    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
-#
-#add_pdn_connect \
-#    -grid sram_macros_NS \
-#    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
-#
-#add_pdn_stripe -grid sram_macros_NS -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
-#
-#define_pdn_grid \
-#    -macro \
-#    -instances i_chip_core.sram_1 \
-#    -name sram_macros_WE \
-#    -starts_with POWER \
-#    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
-#
-#add_pdn_connect \
-#    -grid sram_macros_WE \
-#    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
-#
-#add_pdn_connect \
-#    -grid sram_macros_WE \
-#    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
-#
-#add_pdn_stripe -grid sram_macros_WE -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 479.88 -starts_with GROUND -number_of_straps 2
+add_pdn_connect \
+    -grid sram_macro_0_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_0_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_0_0 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[1].u_ram.sram_0 \
+    -name sram_macro_0_1 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_0_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_0_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_0_1 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[2].u_ram.sram_0 \
+    -name sram_macro_0_2 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_0_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_0_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_0_2 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[3].u_ram.sram_0 \
+    -name sram_macro_0_3 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_0_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_0_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_0_3 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[0].u_ram.sram_0 \
+    -name sram_macro_1_0 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_1_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_1_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_1_0 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[1].u_ram.sram_0 \
+    -name sram_macro_1_1 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_1_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_1_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_1_1 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[2].u_ram.sram_0 \
+    -name sram_macro_1_2 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_1_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_1_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_1_2 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[3].u_ram.sram_0 \
+    -name sram_macro_1_3 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_1_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_1_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_1_3 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[0].u_ram.sram_0 \
+    -name sram_macro_2_0 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_2_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_2_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_2_0 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[1].u_ram.sram_0 \
+    -name sram_macro_2_1 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_2_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_2_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_2_1 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[2].u_ram.sram_0 \
+    -name sram_macro_2_2 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_2_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_2_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_2_2 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[3].u_ram.sram_0 \
+    -name sram_macro_2_3 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_2_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_2_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_2_3 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[0].u_ram.sram_0 \
+    -name sram_macro_3_0 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_3_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_3_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_3_0 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[1].u_ram.sram_0 \
+    -name sram_macro_3_1 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_3_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_3_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_3_1 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[2].u_ram.sram_0 \
+    -name sram_macro_3_2 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_3_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_3_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_3_2 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[3].u_ram.sram_0 \
+    -name sram_macro_3_3 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid sram_macro_3_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid sram_macro_3_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid sram_macro_3_3 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+# Controller
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_1 \
+    -name controller_0 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_0 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_0 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_2 \
+    -name controller_1 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_1 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_1 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_4 \
+    -name controller_2 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_2 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_2 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_8 \
+    -name controller_3 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_3 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_3 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_4ccx \
+    -name controller_4 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_4 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_4 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_4 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+

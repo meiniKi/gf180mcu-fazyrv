@@ -793,7 +793,7 @@ tiny_wb_dma_oled_spi #(
 //          #    " #    # #    #
 //                     
                                     
-localparam RAM_DEPTH = 1024; // words  
+localparam RAM_DEPTH = 2048; // words  
 
 wb_ram #( .DEPTH( RAM_DEPTH ) ) i_wb_ram (
   `ifdef USE_POWER_PINS
@@ -824,8 +824,12 @@ wb_ram #( .DEPTH( RAM_DEPTH ) ) i_wb_ram (
                                                                       
 
 frv_1 i_frv_1 (
-  .clk_i         ( clk_c_frv_1   ),
-  .rst_in        ( rst_c_frv_1_n ),
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                  ),
+  .VSS           ( VSS                  ),
+  `endif
+  .clk_i         ( clk_c_frv_1          ),
+  .rst_in        ( rst_c_frv_1_n        ),
   // imem
   .wb_imem_stb_o ( wb_c_frv_1_imem_stb  ),
   .wb_imem_cyc_o ( wb_c_frv_1_imem_cyc  ),
@@ -844,8 +848,12 @@ frv_1 i_frv_1 (
 );
 
 frv_2 i_frv_2 (
-  .clk_i         ( clk_c_frv_2   ),
-  .rst_in        ( rst_c_frv_2_n ),
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                  ),
+  .VSS           ( VSS                  ),
+  `endif
+  .clk_i         ( clk_c_frv_2          ),
+  .rst_in        ( rst_c_frv_2_n        ),
   // imem
   .wb_imem_stb_o ( wb_c_frv_2_imem_stb  ),
   .wb_imem_cyc_o ( wb_c_frv_2_imem_cyc  ),
@@ -864,8 +872,12 @@ frv_2 i_frv_2 (
 );
 
 frv_4 i_frv_4 (
-  .clk_i         ( clk_c_frv_4   ),
-  .rst_in        ( rst_c_frv_4_n ),
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                  ),
+  .VSS           ( VSS                  ),
+  `endif
+  .clk_i         ( clk_c_frv_4          ),
+  .rst_in        ( rst_c_frv_4_n        ),
   // imem
   .wb_imem_stb_o ( wb_c_frv_4_imem_stb  ),
   .wb_imem_cyc_o ( wb_c_frv_4_imem_cyc  ),
@@ -884,8 +896,12 @@ frv_4 i_frv_4 (
 );
 
 frv_8 i_frv_8 (
-  .clk_i         ( clk_c_frv_8   ),
-  .rst_in        ( rst_c_frv_8_n ),
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                  ),
+  .VSS           ( VSS                  ),
+  `endif
+  .clk_i         ( clk_c_frv_8          ),
+  .rst_in        ( rst_c_frv_8_n        ),
   // imem
   .wb_imem_stb_o ( wb_c_frv_8_imem_stb  ),
   .wb_imem_cyc_o ( wb_c_frv_8_imem_cyc  ),
@@ -904,8 +920,12 @@ frv_8 i_frv_8 (
 );
 
 frv_4ccx i_frv_4ccx (
-  .clk_i         ( clk_c_frv_4ccx   ),
-  .rst_in        ( rst_c_frv_4ccx_n ),
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                     ),
+  .VSS           ( VSS                     ),
+  `endif
+  .clk_i         ( clk_c_frv_4ccx          ),
+  .rst_in        ( rst_c_frv_4ccx_n        ),
   // imem
   .wb_imem_stb_o ( wb_c_frv_4ccx_imem_stb  ),
   .wb_imem_cyc_o ( wb_c_frv_4ccx_imem_cyc  ),
