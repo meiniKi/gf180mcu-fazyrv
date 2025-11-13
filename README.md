@@ -7,19 +7,18 @@ FazyRV globefish SoC WiP.
 | Pad           | Pin               | Dir | Description                               |
 | ------------- | ----------------- | --- | ----------------------------------------- |
 | input_PAD[0]  | en_wb             | in  | Enable Wishbon bus                        |
-| input_PAD[1]  | en_p2             | in  | Enable secondary peripherals              |
-| input_PAD[2]  | en_p              | in  | Enable peripherals                        |
+| input_PAD[1]  | en_p              | in  | Enable peripherals                        |
+| input_PAD[2]  | en_p2             | in  | Enable redundant peripherals              |
 | input_PAD[3]  | en_frv1           | in  | Enable 1-bit FazyRV core                  |
 | input_PAD[4]  | en_frv2           | in  | Enable 2-bit FazyRV core                  |
 | input_PAD[5]  | en_frv4           | in  | Enable 4-bit FazyRV core                  |
 | input_PAD[6]  | en_frv8           | in  | Enable 8-bit FazyRV core                  |
 | input_PAD[7]  | en_frv4ccx        | in  | Enable 4-bit FazyRV CCX core              |
-| input_PAD[7]  |                   |     |                                           |
-| input_PAD[8]  |                   |     |                                           |
-| input_PAD[9]  |                   |     |                                           |
-| input_PAD[10] |                   |     |                                           |
-| input_PAD[11] |                   |     |                                           |
-| input_PAD[12] |                   |     |                                           |
+| input_PAD[8]  | ccx_res[0]        | in  | CCX result chunk                          |
+| input_PAD[9]  | ccx_res[1]        | in  | CCX result chunk                          |
+| input_PAD[10] | ccx_res[2]        | in  | CCX result chunk                          |
+| input_PAD[11] | ccx_res[3]        | in  | CCX result chunk                          |
+| input_PAD[12] | ccx4_res          | in  | CCX handshaking                           |
 | bidir_PAD[0]  | qspi_mem_cs_rom_n | out | QSPI ROM / Flash chip enable (low active) |
 | bidir_PAD[1]  | qspi_mem_cs_ram_n | out | QSPI RAM chip enable (low active)         |
 | bidir_PAD[2]  | qspi_mem_sck      | out | QSPI clock                                |
@@ -35,31 +34,31 @@ FazyRV globefish SoC WiP.
 | bidir_PAD[12] | spi_sck           | out | SPI clock                                 |
 | bidir_PAD[13] | spi_sdo           | out | SPI data output (copi)                    |
 | bidir_PAD[14] | spi_sdi           | in  | SPI data input (cipo)                     |
-| bidir_PAD[15] |                   |     |                                           |
-| bidir_PAD[16] |                   |     |                                           |
-| bidir_PAD[17] |                   |     |                                           |
-| bidir_PAD[18] |                   |     |                                           |
-| bidir_PAD[19] |                   |     |                                           |
-| bidir_PAD[20] |                   |     |                                           |
-| bidir_PAD[21] |                   |     |                                           |
-| bidir_PAD[22] |                   |     |                                           |
-| bidir_PAD[23] |                   |     |                                           |
-| bidir_PAD[24] |                   |     |                                           |
-| bidir_PAD[25] |                   |     |                                           |
-| bidir_PAD[26] |                   |     |                                           |
-| bidir_PAD[27] |                   |     |                                           |
-| bidir_PAD[28] |                   |     |                                           |
-| bidir_PAD[29] |                   |     |                                           |
-| bidir_PAD[30] |                   |     |                                           |
-| bidir_PAD[31] |                   |     |                                           |
-| bidir_PAD[32] |                   |     |                                           |
-| bidir_PAD[33] |                   |     |                                           |
-| bidir_PAD[34] |                   |     |                                           |
-| bidir_PAD[35] |                   |     |                                           |
-| bidir_PAD[36] |                   |     |                                           |
-| bidir_PAD[37] |                   |     |                                           |
-| bidir_PAD[38] |                   |     |                                           |
-| bidir_PAD[39] |                   |     |                                           |
+| bidir_PAD[15] | xip_cs_n          | out | XIP chip select                           |
+| bidir_PAD[16] | xip_sck           | out | XIP clock                                 |
+| bidir_PAD[17] | xip_sdi[0]        | io  | XIP bidir data                            |
+| bidir_PAD[18] | xip_sdi[1]        | io  | XIP bidir data                            |
+| bidir_PAD[19] | xip_sdi[2]        | io  | XIP bidir data                            |
+| bidir_PAD[20] | xip_sdi[3]        | io  | XIP bidir data                            |
+| bidir_PAD[21] | ccx4_rs_a[0]      | out | CCX operand a chunk                       |
+| bidir_PAD[22] | ccx4_rs_a[1]      | out | CCX operand a chunk                       |
+| bidir_PAD[23] | ccx4_rs_a[2]      | out | CCX operand a chunk                       |
+| bidir_PAD[24] | ccx4_rs_a[3]      | out | CCX operand a chunk                       |
+| bidir_PAD[25] | ccx4_rs_b[0]      | out | CCX operand b chunk                       |
+| bidir_PAD[26] | ccx4_rs_b[1]      | out | CCX operand b chunk                       |
+| bidir_PAD[27] | ccx4_rs_b[2]      | out | CCX operand b chunk                       |
+| bidir_PAD[28] | ccx4_rs_b[3]      | out | CCX operand b chunk                       |
+| bidir_PAD[29] | ccx4_sel[0]       | out | CCX cinsn select                          |
+| bidir_PAD[30] | ccx4_sel[1]       | out | CCX cinsn select                          |
+| bidir_PAD[31] | ccx4_req          | out | CCX request                               |
+| bidir_PAD[32] | efspi_cs          | out | SPI chip select (low active)              |
+| bidir_PAD[33] | efspi_sck         | out | SPI clock                                 |
+| bidir_PAD[34] | efspi_sdo         | out | SPI data out                              |
+| bidir_PAD[35] | efspi_sdi         | in  | SPI data in                               |
+| bidir_PAD[36] | gpio[0]           | io  | General Purpose I/O                       |
+| bidir_PAD[37] | gpio[1]           | io  | General Purpose I/O                       |
+| bidir_PAD[38] | gpio[2]           | io  | General Purpose I/O                       |
+| bidir_PAD[39] | gpio[3]           | io  | General Purpose I/O                       |
 
 ## Memory Map
 

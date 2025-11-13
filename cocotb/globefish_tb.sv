@@ -39,13 +39,13 @@ logic oled_spi_sck;
 
 // GPIO
 //
-logic [15:0] gpi;
-logic [15:0] gpo;
-logic [15:0] gpoen;
-logic [15:0] gpcs;
-logic [15:0] gpsl;
-logic [15:0] gppu;
-logic [15:0] gppd;
+logic [ 3:0] gpi;
+logic [ 3:0] gpo;
+logic [ 3:0] gpoen;
+logic [ 3:0] gpcs;
+logic [ 3:0] gpsl;
+logic [ 3:0] gppu;
+logic [ 3:0] gppd;
 
 // SPI
 //

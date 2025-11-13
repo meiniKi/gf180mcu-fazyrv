@@ -32,20 +32,6 @@ module chip_core #(
   inout  wire [NUM_ANALOG_PADS-1:0] analog  // Analog
 );
 
-// See here for usage: https://gf180mcu-pdk.readthedocs.io/en/latest/IPs/IO/gf180mcu_fd_io/digital.html
-
-TODO
-assign input_pu[5:0] = '0;
-assign input_pd[5:0] = '1;
-// Set the bidir as output
-assign bidir_oe = '1;
-assign bidir_cs = '0;
-assign bidir_sl = '0;
-assign bidir_ie = ~bidir_oe;
-assign bidir_pu = '0;
-assign bidir_pd = '0;
-
-                                   
 //  m     m   "                        
 //  #  #  # mmm     m mm   mmm    mmm  
 //  " #"# #   #     #"  " #"  #  #   " 
@@ -53,11 +39,13 @@ assign bidir_pd = '0;
 //   #   #  mm#mm   #     "#mm"  "mmm" 
 
 logic         en_p;
+logic         en_p2;
 logic         en_wb;
 logic         en_frv1;
 logic         en_frv2;
 logic         en_frv4;
 logic         en_frv8;
+logic         en_frv4ccx;
 
 logic         qspi_mem_cs_ram_n;
 logic         qspi_mem_cs_rom_n;
@@ -66,22 +54,43 @@ logic [ 3:0]  qspi_mem_sdi;
 logic [ 3:0]  qspi_mem_sdo;
 logic [ 3:0]  qspi_mem_oen;
 
+logic         xip_cs_n;
+logic         xip_sck;
+logic [ 3:0]  xip_sdi;
+logic [ 3:0]  xip_sdo;
+logic [ 3:0]  xip_oen;
+
 logic         uart_tx;
 logic         uart_rx;
 
 logic         spi_oled_sck;
 logic         spi_oled_sdo;
 
-logic [ 7:0]  gpi;
-logic [ 7:0]  gpo;
-logic [ 7:0]  gpeo;
+logic [ 3:0]  gpi;
+logic [ 3:0]  gpo;
+logic [ 3:0]  gpeo;
+logic [ 3:0]  gpcs;
+logic [ 3:0]  gpsl;
+logic [ 3:0]  gppu;
+logic [ 3:0]  gppd;
 
 logic         spi_cs;
 logic         spi_sck;
 logic         spi_sdo;
 logic         spi_sdi;
 
-                     
+logic         efspi_cs;
+logic         efspi_sck;
+logic         efspi_sdo;
+logic         efspi_sdi;
+
+logic [ 3:0]  ccx4_rs_a;
+logic [ 3:0]  ccx4_rs_b;
+logic [ 3:0]  ccx4_res;
+logic [ 1:0]  ccx4_sel;
+logic         ccx4_req;
+logic         ccx4_resp;
+                    
 //  m    m              
 //  ##  ##  mmm   mmmm  
 //  # ## # "   #  #" "# 
@@ -90,12 +99,12 @@ logic         spi_sdi;
 //                #
 //                "
 
-// ### Enables: NUM_INPUT_PADS[5:0]
+// ### Enables: NUM_INPUT_PADS[7:0]
 // ################################
 
-assign input_pu[5:0] = '0;
-assign input_pd[5:0] = '1;
-assign {en_frv8, en_frv4, en_frv2, en_frv1, en_p, en_wb} = input_in[5:0];
+assign input_pu[7:0] = '0;
+assign input_pd[7:0] = '1;
+assign {en_frv4ccx, en_frv8, en_frv4, en_frv2, en_frv1, en_p2, en_p, en_wb} = input_in[7:0];
 
 // ### QSPI XIP Memory: NUM_BIDIR_PADS[6:0]
 // ########################################
@@ -196,10 +205,137 @@ assign bidir_pd[14]      = '0;  // no pull
 assign spi_sdi           = bidir_in[14];
 assign bidir_out[14]     = '1;  // don't care; 1
 
+// ### XIP: NUM_BIDIR_PADS[20:15]
+// ########################################
+
+//  - xip_cs_n 
+assign bidir_oe[15]  = '1;  // output
+assign bidir_cs[15]  = '0;  // dont care; cmos buffer 
+assign bidir_sl[15]  = '1;  // fast slew rate
+assign bidir_ie[15]  = '0;  // input disable
+assign bidir_pu[15]  = '0;  // no pull
+assign bidir_pd[15]  = '0;  // no pull
+
+//assign bidir_in[15] dont care
+assign bidir_out[15] = xip_cs_n;
+
+//  - xip_sck
+assign bidir_oe[16]  = '1;  // output
+assign bidir_cs[16]  = '0;  // dont care; cmos buffer 
+assign bidir_sl[16]  = '1;  // fast slew rate
+assign bidir_ie[16]  = '0;  // input disable
+assign bidir_pu[16]  = '0;  // no pull
+assign bidir_pd[16]  = '0;  // no pull
+
+//assign bidir_in[16] dont care
+assign bidir_out[16]   = xip_sck;
+
+//  - xip_sd i/o
+assign bidir_cs[20:17] = '0;  // cmos buffer 
+assign bidir_sl[20:17] = '1;  // fast slew rate
+assign bidir_pu[20:17] = '0;  // no pull
+assign bidir_pd[20:17] = '0;  // no pull
+
+assign bidir_ie[20:17]  = ~xip_oen;         // input: ~output
+assign bidir_oe[20:17]  = xip_oen;          // output enable
+assign bidir_out[20:17] = xip_sdo;          // output data
+assign xip_sdi          = bidir_in[20:17];  // input data
+
+// ### CCX: NUM_BIDIR_PADS[31:21], input_PAD[12:8]
+// ########################################
+
+//  - ccx4_rs_a
+assign bidir_oe[24:21] = '1;  // output
+assign bidir_cs[24:21] = '0;  // dont care; cmos buffer 
+assign bidir_sl[24:21] = '1;  // fast slew rate
+assign bidir_ie[24:21] = '0;  // input disable
+assign bidir_pu[24:21] = '0;  // no pull
+assign bidir_pd[24:21] = '0;  // no pull
+
+//assign bidir_in[24:21] dont care
+assign bidir_out[24:21] = ccx4_rs_a;
+
+//  - ccx4_rs_b
+assign bidir_oe[28:25] = '1;  // output
+assign bidir_cs[28:25] = '0;  // dont care; cmos buffer 
+assign bidir_sl[28:25] = '1;  // fast slew rate
+assign bidir_ie[28:25] = '0;  // input disable
+assign bidir_pu[28:25] = '0;  // no pull
+assign bidir_pd[28:25] = '0;  // no pull
+
+//assign bidir_in[28:25] dont care
+assign bidir_out[28:25] = ccx4_rs_b;
+
+//  - ccx4_res
+assign input_pu[11:8] = '0; // no pull
+assign input_pd[11:8] = '0; // no pull
+assign ccx4_res = input_in[11:8];
+
+//  - ccx4_sel
+assign bidir_oe[30:29] = '1;  // output
+assign bidir_cs[30:29] = '0;  // dont care; cmos buffer 
+assign bidir_sl[30:29] = '1;  // fast slew rate
+assign bidir_ie[30:29] = '0;  // input disable
+assign bidir_pu[30:29] = '0;  // no pull
+assign bidir_pd[30:29] = '0;  // no pull
+
+//assign bidir_in[30:29] dont care
+assign bidir_out[30:29] = ccx4_sel;
+
+//  - ccx4_req
+assign bidir_oe[31] = '1;  // output
+assign bidir_cs[31] = '0;  // dont care; cmos buffer 
+assign bidir_sl[31] = '1;  // fast slew rate
+assign bidir_ie[31] = '0;  // input disable
+assign bidir_pu[31] = '0;  // no pull
+assign bidir_pd[31] = '0;  // no pull
+
+//assign bidir_in[31] dont care
+assign bidir_out[31] = ccx4_req;
+
+//  - ccx4_resp
+assign input_pu[12] = '0; // no pull
+assign input_pd[12] = '0; // no pull
+assign ccx4_resp = input_in[12];
+
+// ### EF_SPI: NUM_BIDIR_PADS[35:32]
+// ########################################
+
+// - cs, sck, sdo
+assign bidir_oe[34:32]   = '1;  // output
+assign bidir_cs[34:32]   = '0;  // dont care; cmos buffer 
+assign bidir_sl[34:32]   = '1;  // fast slew rate
+assign bidir_ie[34:32]   = '0;  // input disable
+assign bidir_pu[34:32]   = '0;  // no pull
+assign bidir_pd[34:32]   = '0;  // no pull
+
+//assign bidir_in[34:32] dont care
+assign bidir_out[34:32]  = {efspi_sdo, efspi_sck, efspi_cs};
+
+// - sdi
+assign bidir_oe[35]      = '0;  // input
+assign bidir_cs[35]      = '0;  // cmos buffer 
+assign bidir_sl[35]      = '1;  // fast slew rate
+assign bidir_ie[35]      = '1;  // input enable
+assign bidir_pu[35]      = '1;  // pull up
+assign bidir_pd[35]      = '0;  // no pull
+
+assign efspi_sdi         = bidir_in[35];
+assign bidir_out[35]     = '1;  // don't care; 1
 
 
+// ### GPIO: NUM_BIDIR_PADS[39:36]
+// ########################################
 
+assign bidir_oe[39:36] = gpeo;  // prog. output enable
+assign bidir_cs[39:36] = gpcs;  // prog. type
+assign bidir_sl[39:36] = gpsl;  // prog. slew rate
+assign bidir_ie[39:36] = '1;    // alway input enable
+assign bidir_pu[39:36] = gppu;  // prog. pull up
+assign bidir_pd[39:36] = gppd;  // prog. pull down
 
+assign gpi = bidir_in[39:36];
+assign bidir_out[39:36] = gpo;
 
 //        ""#           #               m""    "           #     
 //  mmmm    #     mmm   #mmm    mmm   mm#mm  mmm     mmm   # mm  
@@ -219,10 +355,12 @@ globefish_soc i_globefish_soc (
   // Enables
   .en_p_i             ( en_p              ),
   .en_wb_i            ( en_wb             ),
+  .en_p2_i            ( en_p2             ),
   .en_frv1_i          ( en_frv1           ),
   .en_frv2_i          ( en_frv2           ),
   .en_frv4_i          ( en_frv4           ),
   .en_frv8_i          ( en_frv8           ),
+  .en_frv4ccx_i       ( en_frv4ccx        ),
   // QSPI XIP Memory
   .qspi_mem_cs_ram_on ( qspi_mem_cs_ram_n ),
   .qspi_mem_cs_rom_on ( qspi_mem_cs_rom_n ),
@@ -230,6 +368,13 @@ globefish_soc i_globefish_soc (
   .qspi_mem_sd_i      ( qspi_mem_sdi      ),
   .qspi_mem_sd_o      ( qspi_mem_sdo      ),
   .qspi_mem_oen_o     ( qspi_mem_oen      ),
+  // FazyRV CCX
+  .ccx4_rs_a_o        ( ccx4_rs_a         ),
+  .ccx4_rs_b_o        ( ccx4_rs_b         ),
+  .ccx4_res_i         ( ccx4_res          ),
+  .ccx4_sel_o         ( ccx4_sel          ),
+  .ccx4_req_o         ( ccx4_req          ),
+  .ccx4_resp_i        ( ccx4_resp         ),
   // UART
   .uart_tx_o          ( uart_tx           ),
   .uart_rx_i          ( uart_rx           ),
@@ -240,12 +385,28 @@ globefish_soc i_globefish_soc (
   .gpi_i              ( gpi               ),
   .gpo_o              ( gpo               ),
   .gpeo_o             ( gpeo              ),
+  .gpcs_o             ( gpcs              ),
+  .gpsl_o             ( gpsl              ),
+  .gppu_o             ( gppu              ),
+  .gppd_o             ( gppd              ),
   // SPI
   .spi_cs_o           ( spi_cs            ),
   .spi_sck_o          ( spi_sck           ),
   .spi_sdo_o          ( spi_sdo           ),
-  .spi_sdi_i          ( spi_sdi           )
+  .spi_sdi_i          ( spi_sdi           ),
+  // EF SPI
+  .efspi_cs_o         ( efspi_cs           ),
+  .efspi_sck_o        ( efspi_sck          ),
+  .efspi_sdo_o        ( efspi_sdo          ),
+  .efspi_sdi_i        ( efspi_sdi          ),
+  //
+  .xip_cs_on          ( xip_cs_n          ),
+  .xip_sck_o          ( xip_sck           ),
+  .xip_sd_i           ( xip_sdi           ),
+  .xip_sd_o           ( xip_sdo           ),
+  .xip_oen_o          ( xip_oen           )
 );
+
 
 endmodule
 

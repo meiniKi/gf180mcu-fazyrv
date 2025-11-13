@@ -4,32 +4,32 @@ register_blocks:
     registers:
       - name: GPI
         bit_fields: 
-          - { name: gpi, bit_assignment: { width: 16 }, type: ro}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gpi, bit_assignment: { width: 4 }, type: ro}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: GPO
         bit_fields: 
-          - { name: gpo, bit_assignment: { width: 16 }, type: rw, initial_value: 0}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gpo, bit_assignment: { width: 4 }, type: rw, initial_value: 0}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: GPOE
         bit_fields: 
-          - { name: gpoe, bit_assignment: { width: 16 }, type: rw, initial_value: 0}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gpoe, bit_assignment: { width: 4 }, type: rw, initial_value: 0}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: GPCS
         bit_fields: 
-          - { name: gpcs, bit_assignment: { width: 16 }, type: rw, initial_value: 0}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gpcs, bit_assignment: { width: 4 }, type: rw, initial_value: 0}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: GPSL
         bit_fields: 
-          - { name: gpsl, bit_assignment: { width: 16 }, type: rw, initial_value: 0}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gpsl, bit_assignment: { width: 4 }, type: rw, initial_value: 0}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: GPPU
         bit_fields: 
-          - { name: gppu, bit_assignment: { width: 16 }, type: rw, initial_value: 0}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gppu, bit_assignment: { width: 4 }, type: rw, initial_value: 0}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: GPPD
         bit_fields: 
-          - { name: gppd, bit_assignment: { width: 16 }, type: rw, initial_value: 0}
-          - { name: reserved, bit_assignment: { width: 16 }, type: reserved }
+          - { name: gppd, bit_assignment: { width: 4 }, type: rw, initial_value: 0}
+          - { name: reserved, bit_assignment: { width: 28 }, type: reserved }
       - name: SPI_Conf
         bit_fields: 
           - { name: presc, bit_assignment: { width: 4 }, type: rw, initial_value: 1}

@@ -21,13 +21,13 @@ module CSR #(
   output o_wb_err,
   output o_wb_rty,
   output [31:0] o_wb_dat,
-  input [15:0] i_GPI_gpi,
-  output [15:0] o_GPO_gpo,
-  output [15:0] o_GPOE_gpoe,
-  output [15:0] o_GPCS_gpcs,
-  output [15:0] o_GPSL_gpsl,
-  output [15:0] o_GPPU_gppu,
-  output [15:0] o_GPPD_gppd,
+  input [3:0] i_GPI_gpi,
+  output [3:0] o_GPO_gpo,
+  output [3:0] o_GPOE_gpoe,
+  output [3:0] o_GPCS_gpcs,
+  output [3:0] o_GPSL_gpsl,
+  output [3:0] o_GPPU_gppu,
+  output [3:0] o_GPPD_gppd,
   output [3:0] o_SPI_Conf_presc,
   output o_SPI_Conf_cpol,
   output o_SPI_Conf_auto_cs,
@@ -95,7 +95,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (0),
@@ -125,7 +125,7 @@ module CSR #(
     );
     if (1) begin : g_gpi
       rggen_bit_field #(
-        .WIDTH              (16),
+        .WIDTH              (4),
         .STORAGE            (0),
         .EXTERNAL_READ_DATA (1),
         .TRIGGER            (0)
@@ -135,18 +135,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b0),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
         .i_value            (i_GPI_gpi),
-        .i_mask             ({16{1'b1}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (),
         .o_value_unmasked   ()
       );
@@ -159,7 +159,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (1),
@@ -189,8 +189,8 @@ module CSR #(
     );
     if (1) begin : g_gpo
       rggen_bit_field #(
-        .WIDTH          (16),
-        .INITIAL_VALUE  (16'h0000),
+        .WIDTH          (4),
+        .INITIAL_VALUE  (4'h0),
         .SW_WRITE_ONCE  (0),
         .TRIGGER        (0)
       ) u_bit_field (
@@ -199,18 +199,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b1),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
-        .i_value            ({16{1'b0}}),
-        .i_mask             ({16{1'b1}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
+        .i_value            ({4{1'b0}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (o_GPO_gpo),
         .o_value_unmasked   ()
       );
@@ -223,7 +223,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (1),
@@ -253,8 +253,8 @@ module CSR #(
     );
     if (1) begin : g_gpoe
       rggen_bit_field #(
-        .WIDTH          (16),
-        .INITIAL_VALUE  (16'h0000),
+        .WIDTH          (4),
+        .INITIAL_VALUE  (4'h0),
         .SW_WRITE_ONCE  (0),
         .TRIGGER        (0)
       ) u_bit_field (
@@ -263,18 +263,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b1),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
-        .i_value            ({16{1'b0}}),
-        .i_mask             ({16{1'b1}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
+        .i_value            ({4{1'b0}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (o_GPOE_gpoe),
         .o_value_unmasked   ()
       );
@@ -287,7 +287,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (1),
@@ -317,8 +317,8 @@ module CSR #(
     );
     if (1) begin : g_gpcs
       rggen_bit_field #(
-        .WIDTH          (16),
-        .INITIAL_VALUE  (16'h0000),
+        .WIDTH          (4),
+        .INITIAL_VALUE  (4'h0),
         .SW_WRITE_ONCE  (0),
         .TRIGGER        (0)
       ) u_bit_field (
@@ -327,18 +327,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b1),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
-        .i_value            ({16{1'b0}}),
-        .i_mask             ({16{1'b1}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
+        .i_value            ({4{1'b0}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (o_GPCS_gpcs),
         .o_value_unmasked   ()
       );
@@ -351,7 +351,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (1),
@@ -381,8 +381,8 @@ module CSR #(
     );
     if (1) begin : g_gpsl
       rggen_bit_field #(
-        .WIDTH          (16),
-        .INITIAL_VALUE  (16'h0000),
+        .WIDTH          (4),
+        .INITIAL_VALUE  (4'h0),
         .SW_WRITE_ONCE  (0),
         .TRIGGER        (0)
       ) u_bit_field (
@@ -391,18 +391,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b1),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
-        .i_value            ({16{1'b0}}),
-        .i_mask             ({16{1'b1}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
+        .i_value            ({4{1'b0}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (o_GPSL_gpsl),
         .o_value_unmasked   ()
       );
@@ -415,7 +415,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (1),
@@ -445,8 +445,8 @@ module CSR #(
     );
     if (1) begin : g_gppu
       rggen_bit_field #(
-        .WIDTH          (16),
-        .INITIAL_VALUE  (16'h0000),
+        .WIDTH          (4),
+        .INITIAL_VALUE  (4'h0),
         .SW_WRITE_ONCE  (0),
         .TRIGGER        (0)
       ) u_bit_field (
@@ -455,18 +455,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b1),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
-        .i_value            ({16{1'b0}}),
-        .i_mask             ({16{1'b1}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
+        .i_value            ({4{1'b0}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (o_GPPU_gppu),
         .o_value_unmasked   ()
       );
@@ -479,7 +479,7 @@ module CSR #(
     wire [31:0] w_bit_field_write_data;
     wire [31:0] w_bit_field_read_data;
     wire [31:0] w_bit_field_value;
-    `rggen_tie_off_unused_signals(32, 32'h0000ffff, w_bit_field_read_data, w_bit_field_value)
+    `rggen_tie_off_unused_signals(32, 32'h0000000f, w_bit_field_read_data, w_bit_field_value)
     rggen_default_register #(
       .READABLE       (1),
       .WRITABLE       (1),
@@ -509,8 +509,8 @@ module CSR #(
     );
     if (1) begin : g_gppd
       rggen_bit_field #(
-        .WIDTH          (16),
-        .INITIAL_VALUE  (16'h0000),
+        .WIDTH          (4),
+        .INITIAL_VALUE  (4'h0),
         .SW_WRITE_ONCE  (0),
         .TRIGGER        (0)
       ) u_bit_field (
@@ -519,18 +519,18 @@ module CSR #(
         .i_sw_read_valid    (w_bit_field_read_valid),
         .i_sw_write_valid   (w_bit_field_write_valid),
         .i_sw_write_enable  (1'b1),
-        .i_sw_mask          (w_bit_field_mask[0+:16]),
-        .i_sw_write_data    (w_bit_field_write_data[0+:16]),
-        .o_sw_read_data     (w_bit_field_read_data[0+:16]),
-        .o_sw_value         (w_bit_field_value[0+:16]),
+        .i_sw_mask          (w_bit_field_mask[0+:4]),
+        .i_sw_write_data    (w_bit_field_write_data[0+:4]),
+        .o_sw_read_data     (w_bit_field_read_data[0+:4]),
+        .o_sw_value         (w_bit_field_value[0+:4]),
         .o_write_trigger    (),
         .o_read_trigger     (),
         .i_hw_write_enable  (1'b0),
-        .i_hw_write_data    ({16{1'b0}}),
-        .i_hw_set           ({16{1'b0}}),
-        .i_hw_clear         ({16{1'b0}}),
-        .i_value            ({16{1'b0}}),
-        .i_mask             ({16{1'b1}}),
+        .i_hw_write_data    ({4{1'b0}}),
+        .i_hw_set           ({4{1'b0}}),
+        .i_hw_clear         ({4{1'b0}}),
+        .i_value            ({4{1'b0}}),
+        .i_mask             ({4{1'b1}}),
         .o_value            (o_GPPD_gppd),
         .o_value_unmasked   ()
       );
