@@ -16,3 +16,15 @@
 [submodule "ip/ahb3lite_wb_bridge"]
 	path = ip/ahb3lite_wb_bridge
 	url = https://github.com/meiniKi/ahb3lite_wb_bridge.git
+[submodule "ip/EF_UART"]
+	path = ip/EF_UART
+	url = https://github.com/meiniki/EF_UART.git
+[submodule "ip/EF_IP_UTIL"]
+	path = ip/EF_IP_UTIL
+	url = https://github.com/meiniki/EF_IP_UTIL.git
+[submodule "ip/EF_SPI"]
+	path = ip/EF_SPI
+	url = https://github.com/meiniki/EF_SPI.git
+[submodule "ip/MS_QSPI_XIP_CACHE"]
+	path = ip/MS_QSPI_XIP_CACHE
+	url = https://github.com/meiniki/MS_QSPI_XIP_CACHE.git
