@@ -2,7 +2,7 @@
 DESIGN_NAME: frv_2
 VERILOG_FILES: dir::frv_2_nl.sv
 CLOCK_PORT: clk_i
-CLOCK_PERIOD: 10 # 10ns = 100MHz
+CLOCK_PERIOD: 20 # 20ns = 50MHz
 
 FP_SIZING: relative
 #DIE_AREA: [0, 0, 50, 50]

@@ -23,6 +23,16 @@ clone-pdk: ## Clone the GF180MCU PDK repository
 	git clone https://github.com/wafer-space/gf180mcu.git $(MAKEFILE_DIR)/gf180mcu --depth 1
 .PHONY: clone-pdk
 
+# TODO: only frv1 now; skips drc
+librelane-macro:
+	librelane macros/frv_8/config.yaml --pdk ${PDK} --pdk-root ${PDK_ROOT} --manual-pdk --skip KLayout.DRC --skip Magic.DRC
+.PHONY: librelane-macro
+
+librelane-macro-openroad:
+	librelane macros/frv_8/config.yaml --pdk ${PDK} --pdk-root ${PDK_ROOT} --manual-pdk --last-run --flow OpenInOpenROAD
+.PHONY: librelane-macro-openroad
+
+
 librelane: ## Run LibreLane flow (synthesis, PnR, verification)
 	librelane librelane/config.yaml --pdk ${PDK} --pdk-root ${PDK_ROOT} --manual-pdk
 .PHONY: librelane
@@ -54,8 +64,9 @@ sim: ## Run RTL simulation with cocotb
 #cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_toggle.py
 #cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_sram_simple.py
 #cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_sram.py
+#cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_uart.py
 sim-globefish:
-	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_uart.py
+	cd cocotb; PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 test_toggle.py
 .PHONY: sim-globefish
 
 
@@ -73,7 +84,8 @@ copy-final: ## Copy final output files from the last run
 .PHONY: copy-final
 
 
-SRC_SOC =   src/gen/CSR.v \
+SRC_SOC =   src/reset_sync.sv \
+			src/gen/CSR.v \
 			src/gen/wb_intercon.v \
 			src/ram512x8.sv \
 			src/ram512x32.sv \

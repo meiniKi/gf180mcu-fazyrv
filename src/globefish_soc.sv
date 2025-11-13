@@ -302,7 +302,6 @@ logic [ 3:0] wb_p_uart_sel;
 logic uart_irq;
 
 
-                     
 // mmmmm           m             mmm           mmm  ""#    #     
 // #   "#  mmm   mm#mm          #            m"   "   #    #   m 
 // #mmmm" #   "    #            ##           #        #    # m"  
@@ -312,27 +311,34 @@ logic uart_irq;
 //################################################################                                                             
                                                                
 logic [4:0] rst_delay_cnt;
-logic       rst_in_sync;
+logic       rst_dly_n;
+logic       rst_sync_n;
 logic       rst_deassert;
 
-always_ff @(posedge clk_i or negedge rst_in) begin
-  if (!rst_in) begin
+reset_sync i_reset_sync (
+  .clk_i          ( clk_i       ),
+  .async_reset_on ( rst_in      ),
+  .sync_reset_on  ( rst_sync_n  )
+);
+
+always_ff @(posedge clk_i or negedge rst_sync_n) begin
+  if (!rst_sync_n) begin
     rst_delay_cnt <= '0;
-    rst_in_sync   <= 1'b0;
+    rst_dly_n     <= 1'b0;
   end else begin
     if (rst_delay_cnt != 4'd15)
       rst_delay_cnt <= rst_delay_cnt + 1'b1;
     else
-      rst_in_sync <= 1'b1;
+      rst_dly_n <= 1'b1;
   end
 end
 
-assign rst_wb_n       = rst_in;
-assign rst_p_n        = rst_in;
-assign rst_c_frv_1_n  = rst_in_sync;
-assign rst_c_frv_2_n  = rst_in_sync;
-assign rst_c_frv_4_n  = rst_in_sync;
-assign rst_c_frv_8_n  = rst_in_sync;
+assign rst_wb_n       = rst_sync_n;
+assign rst_p_n        = rst_sync_n;
+assign rst_c_frv_1_n  = rst_dly_n;
+assign rst_c_frv_2_n  = rst_dly_n;
+assign rst_c_frv_4_n  = rst_dly_n;
+assign rst_c_frv_8_n  = rst_dly_n;
 
 
 //  mmm    mmmm 
@@ -353,7 +359,7 @@ logic en_frv4_sync_r;
 logic en_frv8_sync_r;
 
 always_ff @(posedge clk_i) begin
-  if (~rst_in) begin
+  if (~rst_sync_n) begin
     en_frv1_sync_r <= 1'b1;
     en_frv2_sync_r <= 1'b1;
     en_frv4_sync_r <= 1'b1;

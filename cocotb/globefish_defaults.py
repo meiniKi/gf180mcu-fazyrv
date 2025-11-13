@@ -48,7 +48,7 @@ async def start_clock(clock, freq=100):
     cocotb.start_soon(c.start())
 
 
-async def reset(reset, active_low=True, time_ns=1005):
+async def reset(reset, active_low=True, time_ns=1000):
     """Reset dut"""
     cocotb.log.info("Reset asserted...")
 
@@ -131,6 +131,7 @@ def sim_setup(test_module, firmware):
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_wishbone_adapter.v")
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_address_decoder.v")
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_or_reducer.v")
+        sources.append(proj_path / "../src/reset_sync.sv")
         sources.append(proj_path / "../src/gen/CSR.v")
         sources.append(proj_path / "../ip/verilog-arbiter/src/arbiter.v")
         sources.append(proj_path / "../ip/wb_intercon/rtl/verilog/wb_cdc.v")
