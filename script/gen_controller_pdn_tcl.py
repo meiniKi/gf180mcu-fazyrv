@@ -24,7 +24,9 @@ controller_macros = [ "i_chip_core.i_globefish_soc.i_frv_1",
                         "i_chip_core.i_globefish_soc.i_frv_2",
                         "i_chip_core.i_globefish_soc.i_frv_4",
                         "i_chip_core.i_globefish_soc.i_frv_8",
-                        "i_chip_core.i_globefish_soc.i_frv_4ccx"]
+                        "i_chip_core.i_globefish_soc.i_frv_4ccx",
+                        "i_chip_core.i_globefish_soc.i_frv_1bram",
+                        "i_chip_core.i_globefish_soc.i_frv_8bram"]
 
 
 for i, contr in enumerate(controller_macros):

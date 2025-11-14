@@ -533,7 +533,7 @@ assign rst_c_frv_8bram_n  = rst_dly_n;
 //          "" 
 //############### 
 
-localparam N_CLOCKS = 8;
+localparam N_CLOCKS = 10;
 
 // Sync clock gating such that once controller cannot block the bus
 logic en_frv1_sync_r;
@@ -584,8 +584,27 @@ end
 logic [N_CLOCKS-1:0] cg_enables;
 logic [N_CLOCKS-1:0] cg_clks;
 
-assign cg_enables = {en_p2_i, en_p_i, en_wb_i, en_frv1_sync_r, en_frv2_sync_r, en_frv4_sync_r, en_frv8_sync_r, en_frv4ccx_sync_r};
-assign {clk_p2, clk_p, clk_wb, clk_c_frv_1, clk_c_frv_2, clk_c_frv_4, clk_c_frv_8, clk_c_frv_4ccx} = cg_clks;
+assign cg_enables = { en_p2_i, 
+                      en_p_i, 
+                      en_wb_i,
+                      en_frv1_sync_r,
+                      en_frv2_sync_r,
+                      en_frv4_sync_r,
+                      en_frv8_sync_r,
+                      en_frv4ccx_sync_r,
+                      en_frv1bram_sync_r,
+                      en_frv8bram_sync_r };
+
+assign {  clk_p2,
+          clk_p,
+          clk_wb,
+          clk_c_frv_1,
+          clk_c_frv_2,
+          clk_c_frv_4,
+          clk_c_frv_8,
+          clk_c_frv_4ccx,
+          clk_c_frv_1bram,
+          clk_c_frv_8bram } = cg_clks;
 
 `ifdef NO_CLOCK_GATES_TODO
 genvar i;

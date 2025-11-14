@@ -326,7 +326,7 @@ MACROS:
         - dir::../macros/frv_1/final/lib/max_ss_125C_4v50/frv_1__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_1:
-        location: [600, 3500]
+        location: [650, 3000]
         orientation: N
 
   frv_2:
@@ -345,7 +345,7 @@ MACROS:
         - dir::../macros/frv_2/final/lib/max_ss_125C_4v50/frv_2__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_2:
-        location: [1100, 3500]
+        location: [1300, 3000]
         orientation: N
 
   frv_4:
@@ -364,7 +364,7 @@ MACROS:
         - dir::../macros/frv_4/final/lib/max_ss_125C_4v50/frv_4__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_4:
-        location: [1600, 3500]
+        location: [1950, 3000]
         orientation: N
 
   frv_8:
@@ -383,7 +383,7 @@ MACROS:
         - dir::../macros/frv_8/final/lib/max_ss_125C_4v50/frv_8__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_8:
-        location: [2300, 3500]
+        location: [2600, 3000]
         orientation: N
 
   frv_4ccx:
@@ -402,7 +402,7 @@ MACROS:
         - dir::../macros/frv_4ccx/final/lib/max_ss_125C_4v50/frv_4ccx__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_4ccx:
-        location: [3000, 3500]
+        location: [650, 4000]
         orientation: N
 
   frv_1bram:
@@ -421,7 +421,7 @@ MACROS:
         - dir::../macros/frv_1bram/final/lib/max_ss_125C_4v50/frv_1bram__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_1bram:
-        location: [3000, 4000]
+        location: [1300, 4000]
         orientation: N
 
   frv_8bram:
@@ -440,7 +440,7 @@ MACROS:
         - dir::../macros/frv_8bram/final/lib/max_ss_125C_4v50/frv_8bram__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_globefish_soc.i_frv_8bram:
-        location: [2500, 4000]
+        location: [1950, 4000]
         orientation: N
 
 
@@ -511,30 +511,31 @@ MACROS:
 
 # This is an alternative method compared to
 # specifying the power connections in the RTL
-PDN_MACRO_CONNECTIONS:
-- "i_chip_core.i_globefish_soc.i_frv_1 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_frv_2 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_frv_4 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_frv_8 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_frv_4ccx VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_frv_1bram VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_frv_8bram VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[0].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[1].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[2].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[3].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[0].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[1].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[2].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[3].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[0].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[1].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[2].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[3].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[0].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[1].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[2].u_ram.sram_0 VDD VSS VDD VSS"
-- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[3].u_ram.sram_0 VDD VSS VDD VSS"
+# --> Defined in RTL: regex not matching?
+#PDN_MACRO_CONNECTIONS:
+#- "i_chip_core.i_globefish_soc.i_frv_1 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_frv_2 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_frv_4 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_frv_8 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_frv_4ccx VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_frv_1bram VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_frv_8bram VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
 
 
 PDN_CFG: dir::pdn_cfg.tcl

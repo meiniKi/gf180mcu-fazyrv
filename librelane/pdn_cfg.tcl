@@ -594,3 +594,39 @@ add_pdn_connect \
 add_pdn_stripe -grid controller_4 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
 
 
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_1bram \
+    -name controller_5 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_5 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_5 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_5 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
+
+
+
+define_pdn_grid \
+    -macro \
+    -instances i_chip_core.i_globefish_soc.i_frv_8bram \
+    -name controller_6 \
+    -starts_with POWER \
+    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+
+add_pdn_connect \
+    -grid controller_6 \
+    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+
+add_pdn_connect \
+    -grid controller_6 \
+    -layers "$::env(PDN_VERTICAL_LAYER) Metal3"
+
+add_pdn_stripe -grid controller_6 -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pitch 426.86 -starts_with GROUND -number_of_straps 2
