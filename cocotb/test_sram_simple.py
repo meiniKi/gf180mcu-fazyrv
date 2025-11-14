@@ -17,7 +17,7 @@ FIRMWARE = '../firmware/test_sram_simple/build/firmware.hex'
 
 first_test = True
 
-@cocotb.parametrize(core=[1,2,4,8])
+@cocotb.parametrize(core=["1","2","4","8"])
 async def test_sram_simple(dut, core):
     global first_test
     logger = logging.getLogger(TEST_MODULE)
@@ -26,7 +26,7 @@ async def test_sram_simple(dut, core):
     first_test = False
     logger.info("Running the test...")
 
-    await ClockCycles(dut.clk, 30000//int(math.log2(1+core)))
+    await ClockCycles(dut.clk, 30000//int(math.log2(1+int(core))))
     
     assert int(dut.gpo.value) == 5
     

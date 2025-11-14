@@ -12,6 +12,10 @@ parameters:
       devices: [qspi_ram_rom, ram, uart, spi, csr, efspi, efxip]
     fazyrv4ccx:
       devices: [qspi_ram_rom, ram, uart, spi, csr, efspi, efxip]
+    fazyrv1bram:
+      devices: [qspi_ram_rom, ram, uart, spi, csr, efspi, efxip]
+    fazyrv8bram:
+      devices: [qspi_ram_rom, ram, uart, spi, csr, efspi, efxip]
     oled_dma:
       devices: [qspi_ram_rom, ram] 
   devices:

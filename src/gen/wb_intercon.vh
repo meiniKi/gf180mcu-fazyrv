@@ -58,6 +58,30 @@ wire [31:0] wb_fazyrv4ccx_rdt;
 wire        wb_fazyrv4ccx_ack;
 wire        wb_fazyrv4ccx_err;
 wire        wb_fazyrv4ccx_rty;
+wire [31:0] wb_fazyrv1bram_adr;
+wire [31:0] wb_fazyrv1bram_dat;
+wire  [3:0] wb_fazyrv1bram_sel;
+wire        wb_fazyrv1bram_we;
+wire        wb_fazyrv1bram_cyc;
+wire        wb_fazyrv1bram_stb;
+wire  [2:0] wb_fazyrv1bram_cti;
+wire  [1:0] wb_fazyrv1bram_bte;
+wire [31:0] wb_fazyrv1bram_rdt;
+wire        wb_fazyrv1bram_ack;
+wire        wb_fazyrv1bram_err;
+wire        wb_fazyrv1bram_rty;
+wire [31:0] wb_fazyrv8bram_adr;
+wire [31:0] wb_fazyrv8bram_dat;
+wire  [3:0] wb_fazyrv8bram_sel;
+wire        wb_fazyrv8bram_we;
+wire        wb_fazyrv8bram_cyc;
+wire        wb_fazyrv8bram_stb;
+wire  [2:0] wb_fazyrv8bram_cti;
+wire  [1:0] wb_fazyrv8bram_bte;
+wire [31:0] wb_fazyrv8bram_rdt;
+wire        wb_fazyrv8bram_ack;
+wire        wb_fazyrv8bram_err;
+wire        wb_fazyrv8bram_rty;
 wire [31:0] wb_oled_dma_adr;
 wire [31:0] wb_oled_dma_dat;
 wire  [3:0] wb_oled_dma_sel;
@@ -218,6 +242,30 @@ wb_intercon wb_intercon0
     .wb_fazyrv4ccx_ack_o   (wb_fazyrv4ccx_ack),
     .wb_fazyrv4ccx_err_o   (wb_fazyrv4ccx_err),
     .wb_fazyrv4ccx_rty_o   (wb_fazyrv4ccx_rty),
+    .wb_fazyrv1bram_adr_i  (wb_fazyrv1bram_adr),
+    .wb_fazyrv1bram_dat_i  (wb_fazyrv1bram_dat),
+    .wb_fazyrv1bram_sel_i  (wb_fazyrv1bram_sel),
+    .wb_fazyrv1bram_we_i   (wb_fazyrv1bram_we),
+    .wb_fazyrv1bram_cyc_i  (wb_fazyrv1bram_cyc),
+    .wb_fazyrv1bram_stb_i  (wb_fazyrv1bram_stb),
+    .wb_fazyrv1bram_cti_i  (wb_fazyrv1bram_cti),
+    .wb_fazyrv1bram_bte_i  (wb_fazyrv1bram_bte),
+    .wb_fazyrv1bram_rdt_o  (wb_fazyrv1bram_rdt),
+    .wb_fazyrv1bram_ack_o  (wb_fazyrv1bram_ack),
+    .wb_fazyrv1bram_err_o  (wb_fazyrv1bram_err),
+    .wb_fazyrv1bram_rty_o  (wb_fazyrv1bram_rty),
+    .wb_fazyrv8bram_adr_i  (wb_fazyrv8bram_adr),
+    .wb_fazyrv8bram_dat_i  (wb_fazyrv8bram_dat),
+    .wb_fazyrv8bram_sel_i  (wb_fazyrv8bram_sel),
+    .wb_fazyrv8bram_we_i   (wb_fazyrv8bram_we),
+    .wb_fazyrv8bram_cyc_i  (wb_fazyrv8bram_cyc),
+    .wb_fazyrv8bram_stb_i  (wb_fazyrv8bram_stb),
+    .wb_fazyrv8bram_cti_i  (wb_fazyrv8bram_cti),
+    .wb_fazyrv8bram_bte_i  (wb_fazyrv8bram_bte),
+    .wb_fazyrv8bram_rdt_o  (wb_fazyrv8bram_rdt),
+    .wb_fazyrv8bram_ack_o  (wb_fazyrv8bram_ack),
+    .wb_fazyrv8bram_err_o  (wb_fazyrv8bram_err),
+    .wb_fazyrv8bram_rty_o  (wb_fazyrv8bram_rty),
     .wb_oled_dma_adr_i     (wb_oled_dma_adr),
     .wb_oled_dma_dat_i     (wb_oled_dma_dat),
     .wb_oled_dma_sel_i     (wb_oled_dma_sel),

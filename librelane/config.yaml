@@ -33,6 +33,8 @@ VERILOG_FILES:
 - dir::../macros/frv_4/frv_4_nl.sv
 - dir::../macros/frv_8/frv_8_nl.sv
 - dir::../macros/frv_4ccx/frv_4ccx_nl.sv
+- dir::../macros/frv_1bram/frv_1bram_nl.sv
+- dir::../macros/frv_8bram/frv_8bram_nl.sv
 - dir::../ip/rggen-verilog-rtl/rggen_mux.v
 - dir::../ip/rggen-verilog-rtl/rggen_bit_field.v
 - dir::../ip/rggen-verilog-rtl/rggen_default_register.v
@@ -403,6 +405,45 @@ MACROS:
         location: [3000, 3500]
         orientation: N
 
+  frv_1bram:
+    gds:
+      - dir::../macros/frv_1bram/final/gds/frv_1bram.gds
+    lef:
+      - dir::../macros/frv_1bram/final/lef/frv_1bram.lef
+    vh:
+      - dir::../macros/frv_1bram/final/vh/frv_1bram.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_1bram/final/lib/max_tt_025C_5v00/frv_1bram__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_1bram/final/lib/max_ff_n40C_5v50/frv_1bram__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_1bram/final/lib/max_ss_125C_4v50/frv_1bram__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_1bram:
+        location: [3000, 4000]
+        orientation: N
+
+  frv_8bram:
+    gds:
+      - dir::../macros/frv_8bram/final/gds/frv_8bram.gds
+    lef:
+      - dir::../macros/frv_8bram/final/lef/frv_8bram.lef
+    vh:
+      - dir::../macros/frv_8bram/final/vh/frv_8bram.vh
+    lib:
+      "*_tt_025C_5v00":
+        - dir::../macros/frv_8bram/final/lib/max_tt_025C_5v00/frv_8bram__max_tt_025C_5v00.lib
+      "*_ff_n40C_5v50":
+        - dir::../macros/frv_8bram/final/lib/max_ff_n40C_5v50/frv_8bram__max_ff_n40C_5v50.lib
+      "*_ss_125C_4v50":
+        - dir::../macros/frv_8bram/final/lib/max_ss_125C_4v50/frv_8bram__max_ss_125C_4v50.lib
+    instances:
+      i_chip_core.i_globefish_soc.i_frv_8bram:
+        location: [2500, 4000]
+        orientation: N
+
+
   gf180mcu_fd_ip_sram__sram512x8m8wm1:
     gds:
       - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/gds/gf180mcu_fd_ip_sram__sram512x8m8wm1.gds
@@ -476,6 +517,8 @@ PDN_MACRO_CONNECTIONS:
 - "i_chip_core.i_globefish_soc.i_frv_4 VDD VSS VDD VSS"
 - "i_chip_core.i_globefish_soc.i_frv_8 VDD VSS VDD VSS"
 - "i_chip_core.i_globefish_soc.i_frv_4ccx VDD VSS VDD VSS"
+- "i_chip_core.i_globefish_soc.i_frv_1bram VDD VSS VDD VSS"
+- "i_chip_core.i_globefish_soc.i_frv_8bram VDD VSS VDD VSS"
 - "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[0].u_ram.sram_0 VDD VSS VDD VSS"
 - "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[1].u_ram.sram_0 VDD VSS VDD VSS"
 - "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[2].u_ram.sram_0 VDD VSS VDD VSS"

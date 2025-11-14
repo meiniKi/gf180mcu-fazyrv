@@ -94,6 +94,8 @@ logic clk_c_frv_2;
 logic clk_c_frv_4;
 logic clk_c_frv_8;
 logic clk_c_frv_4ccx;
+logic clk_c_frv_1bram;
+logic clk_c_frv_8bram;
 
 // Resets
 logic rst_p_n;
@@ -103,7 +105,8 @@ logic rst_c_frv_2_n;
 logic rst_c_frv_4_n;
 logic rst_c_frv_8_n;
 logic rst_c_frv_4ccx_n;
-
+logic rst_c_frv_1bram_n;
+logic rst_c_frv_8bram_n;
 
 //  m     m   "                        
 //  #  #  # mmm     m mm   mmm    mmm  
@@ -149,6 +152,44 @@ assign wb_c_frv_1_imem_ack  = wb_c_frv_1_ack & wb_c_frv_1_imem_stb;
 assign wb_c_frv_1_dmem_ack  = wb_c_frv_1_ack & wb_c_frv_1_dmem_stb;
 assign wb_c_frv_1_imem_rdat = wb_c_frv_1_rdat;
 assign wb_c_frv_1_dmem_rdat = wb_c_frv_1_rdat;
+
+
+// FazyRV 1-bit BRAM
+logic        wb_c_frv_1bram_imem_stb;
+logic        wb_c_frv_1bram_imem_cyc;
+logic        wb_c_frv_1bram_imem_ack;
+logic [31:0] wb_c_frv_1bram_imem_adr;
+logic [31:0] wb_c_frv_1bram_imem_rdat;
+
+logic        wb_c_frv_1bram_dmem_cyc;
+logic        wb_c_frv_1bram_dmem_stb;
+logic        wb_c_frv_1bram_dmem_we;
+logic        wb_c_frv_1bram_dmem_ack;
+logic [ 3:0] wb_c_frv_1bram_dmem_be;
+logic [31:0] wb_c_frv_1bram_dmem_adr;
+logic [31:0] wb_c_frv_1bram_dmem_rdat;
+logic [31:0] wb_c_frv_1bram_dmem_wdat;
+
+logic        wb_c_frv_1bram_cyc;
+logic        wb_c_frv_1bram_stb;
+logic        wb_c_frv_1bram_we;
+logic        wb_c_frv_1bram_ack;
+logic [ 3:0] wb_c_frv_1bram_be;
+logic [31:0] wb_c_frv_1bram_adr;
+logic [31:0] wb_c_frv_1bram_rdat;
+logic [31:0] wb_c_frv_1bram_wdat;
+
+assign wb_c_frv_1bram_cyc  = wb_c_frv_1bram_imem_cyc | wb_c_frv_1bram_dmem_cyc;
+assign wb_c_frv_1bram_stb  = wb_c_frv_1bram_imem_stb | wb_c_frv_1bram_dmem_stb;
+assign wb_c_frv_1bram_be   = wb_c_frv_1bram_imem_stb ? 4'b1111 : wb_c_frv_1bram_dmem_be;
+assign wb_c_frv_1bram_adr  = wb_c_frv_1bram_imem_stb ? wb_c_frv_1bram_imem_adr : wb_c_frv_1bram_dmem_adr;
+assign wb_c_frv_1bram_we   = wb_c_frv_1bram_dmem_stb & wb_c_frv_1bram_dmem_we;
+assign wb_c_frv_1bram_wdat = wb_c_frv_1bram_dmem_wdat;
+
+assign wb_c_frv_1bram_imem_ack  = wb_c_frv_1bram_ack & wb_c_frv_1bram_imem_stb;
+assign wb_c_frv_1bram_dmem_ack  = wb_c_frv_1bram_ack & wb_c_frv_1bram_dmem_stb;
+assign wb_c_frv_1bram_imem_rdat = wb_c_frv_1bram_rdat;
+assign wb_c_frv_1bram_dmem_rdat = wb_c_frv_1bram_rdat;
 
 
 // FazyRV 2-bit
@@ -263,6 +304,43 @@ assign wb_c_frv_8_imem_ack  = wb_c_frv_8_ack & wb_c_frv_8_imem_stb;;
 assign wb_c_frv_8_dmem_ack  = wb_c_frv_8_ack & wb_c_frv_8_dmem_stb;;
 assign wb_c_frv_8_imem_rdat = wb_c_frv_8_rdat;
 assign wb_c_frv_8_dmem_rdat = wb_c_frv_8_rdat;
+
+// FazyRV 8-bit BRAM
+logic        wb_c_frv_8bram_imem_stb;
+logic        wb_c_frv_8bram_imem_cyc;
+logic        wb_c_frv_8bram_imem_ack;
+logic [31:0] wb_c_frv_8bram_imem_adr;
+logic [31:0] wb_c_frv_8bram_imem_rdat;
+
+logic        wb_c_frv_8bram_dmem_cyc;
+logic        wb_c_frv_8bram_dmem_stb;
+logic        wb_c_frv_8bram_dmem_we;
+logic        wb_c_frv_8bram_dmem_ack;
+logic [ 3:0] wb_c_frv_8bram_dmem_be;
+logic [31:0] wb_c_frv_8bram_dmem_adr;
+logic [31:0] wb_c_frv_8bram_dmem_rdat;
+logic [31:0] wb_c_frv_8bram_dmem_wdat;
+
+logic        wb_c_frv_8bram_cyc;
+logic        wb_c_frv_8bram_stb;
+logic        wb_c_frv_8bram_we;
+logic        wb_c_frv_8bram_ack;
+logic [ 3:0] wb_c_frv_8bram_be;
+logic [31:0] wb_c_frv_8bram_adr;
+logic [31:0] wb_c_frv_8bram_rdat;
+logic [31:0] wb_c_frv_8bram_wdat;
+
+assign wb_c_frv_8bram_cyc  = wb_c_frv_8bram_imem_cyc | wb_c_frv_8bram_dmem_cyc;
+assign wb_c_frv_8bram_stb  = wb_c_frv_8bram_imem_stb | wb_c_frv_8bram_dmem_stb;
+assign wb_c_frv_8bram_be   = wb_c_frv_8bram_imem_stb ? 4'b1111 : wb_c_frv_8bram_dmem_be;
+assign wb_c_frv_8bram_adr  = wb_c_frv_8bram_imem_stb ? wb_c_frv_8bram_imem_adr : wb_c_frv_8bram_dmem_adr;
+assign wb_c_frv_8bram_we   = wb_c_frv_8bram_dmem_stb & wb_c_frv_8bram_dmem_we;
+assign wb_c_frv_8bram_wdat = wb_c_frv_8bram_dmem_wdat;
+
+assign wb_c_frv_8bram_imem_ack  = wb_c_frv_8bram_ack & wb_c_frv_8bram_imem_stb;;
+assign wb_c_frv_8bram_dmem_ack  = wb_c_frv_8bram_ack & wb_c_frv_8bram_dmem_stb;;
+assign wb_c_frv_8bram_imem_rdat = wb_c_frv_8bram_rdat;
+assign wb_c_frv_8bram_dmem_rdat = wb_c_frv_8bram_rdat;
 
 // FazyRV 4-bit CCX
 logic        wb_c_frv_4ccx_imem_stb;
@@ -437,13 +515,15 @@ always_ff @(posedge clk_i or negedge rst_sync_n) begin
   end
 end
 
-assign rst_wb_n         = rst_sync_n;
-assign rst_p_n          = rst_sync_n;
-assign rst_c_frv_1_n    = rst_dly_n;
-assign rst_c_frv_2_n    = rst_dly_n;
-assign rst_c_frv_4_n    = rst_dly_n;
-assign rst_c_frv_8_n    = rst_dly_n;
-assign rst_c_frv_4ccx_n = rst_dly_n;
+assign rst_wb_n           = rst_sync_n;
+assign rst_p_n            = rst_sync_n;
+assign rst_c_frv_1_n      = rst_dly_n;
+assign rst_c_frv_2_n      = rst_dly_n;
+assign rst_c_frv_4_n      = rst_dly_n;
+assign rst_c_frv_8_n      = rst_dly_n;
+assign rst_c_frv_4ccx_n   = rst_dly_n;
+assign rst_c_frv_1bram_n  = rst_dly_n;
+assign rst_c_frv_8bram_n  = rst_dly_n;
 
 //  mmm    mmmm 
 // #"  "  #" "# 
@@ -461,14 +541,28 @@ logic en_frv2_sync_r;
 logic en_frv4_sync_r;
 logic en_frv8_sync_r;
 logic en_frv4ccx_sync_r;
+logic en_frv1bram_sync_r;
+logic en_frv8bram_sync_r;
+
+// We don't have any IO left, so we take the
+// CCX result if the CCX variant is not enabled
+logic en_frv1bram;
+logic en_frv8bram;
+
+// TODO: consider using the 2 unused analog pins for
+//       these enable singals 
+assign en_frv1bram = ~en_frv4ccx_i & ccx4_res_i[0];
+assign en_frv8bram = ~en_frv4ccx_i & ccx4_res_i[1];
 
 always_ff @(posedge clk_i) begin
   if (~rst_sync_n) begin
-    en_frv1_sync_r    <= 1'b1;
-    en_frv2_sync_r    <= 1'b1;
-    en_frv4_sync_r    <= 1'b1;
-    en_frv8_sync_r    <= 1'b1;
-    en_frv4ccx_sync_r <= 1'b1;
+    en_frv1_sync_r      <= 1'b1;
+    en_frv2_sync_r      <= 1'b1;
+    en_frv4_sync_r      <= 1'b1;
+    en_frv8_sync_r      <= 1'b1;
+    en_frv4ccx_sync_r   <= 1'b1;
+    en_frv1bram_sync_r  <= 1'b1;
+    en_frv8bram_sync_r  <= 1'b1;
    end else begin
     if (en_frv1_i)    en_frv1_sync_r <= 1'b1;
     else              en_frv1_sync_r <= en_frv1_sync_r & wb_c_frv_1_stb;
@@ -480,6 +574,10 @@ always_ff @(posedge clk_i) begin
     else              en_frv8_sync_r <= en_frv8_sync_r & wb_c_frv_8_stb;
     if (en_frv4ccx_i) en_frv4ccx_sync_r <= 1'b1;
     else              en_frv4ccx_sync_r <= en_frv4ccx_sync_r & wb_c_frv_4ccx_stb;
+    if (en_frv1bram)  en_frv1bram_sync_r <= 1'b1;
+    else              en_frv1bram_sync_r <= en_frv1bram_sync_r & wb_c_frv_1bram_stb;
+    if (en_frv8bram)  en_frv8bram_sync_r <= 1'b1;
+    else              en_frv8bram_sync_r <= en_frv8bram_sync_r & wb_c_frv_8bram_stb;
   end
 end
 
@@ -950,6 +1048,54 @@ frv_4ccx i_frv_4ccx (
   .ccx_resp_i    ( ccx4_resp_i             )
 );
 
+frv_1bram i_frv_1bram (
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                      ),
+  .VSS           ( VSS                      ),
+  `endif
+  .clk_i         ( clk_c_frv_1bram          ),
+  .rst_in        ( rst_c_frv_1bram_n        ),
+  // imem
+  .wb_imem_stb_o ( wb_c_frv_1bram_imem_stb  ),
+  .wb_imem_cyc_o ( wb_c_frv_1bram_imem_cyc  ),
+  .wb_imem_adr_o ( wb_c_frv_1bram_imem_adr  ),
+  .wb_imem_dat_i ( wb_c_frv_1bram_imem_rdat ),
+  .wb_imem_ack_i ( wb_c_frv_1bram_imem_ack  ),
+  // dmem
+  .wb_dmem_cyc_o ( wb_c_frv_1bram_dmem_cyc  ),
+  .wb_dmem_stb_o ( wb_c_frv_1bram_dmem_stb  ),
+  .wb_dmem_we_o  ( wb_c_frv_1bram_dmem_we   ),
+  .wb_dmem_ack_i ( wb_c_frv_1bram_dmem_ack  ),
+  .wb_dmem_be_o  ( wb_c_frv_1bram_dmem_be   ),
+  .wb_dmem_dat_i ( wb_c_frv_1bram_dmem_rdat ),
+  .wb_dmem_adr_o ( wb_c_frv_1bram_dmem_adr  ),
+  .wb_dmem_dat_o ( wb_c_frv_1bram_dmem_wdat )
+);
+
+frv_8bram i_frv_8bram (
+  `ifdef USE_POWER_PINS
+  .VDD           ( VDD                      ),
+  .VSS           ( VSS                      ),
+  `endif
+  .clk_i         ( clk_c_frv_8bram          ),
+  .rst_in        ( rst_c_frv_8bram_n        ),
+  // imem
+  .wb_imem_stb_o ( wb_c_frv_8bram_imem_stb  ),
+  .wb_imem_cyc_o ( wb_c_frv_8bram_imem_cyc  ),
+  .wb_imem_adr_o ( wb_c_frv_8bram_imem_adr  ),
+  .wb_imem_dat_i ( wb_c_frv_8bram_imem_rdat ),
+  .wb_imem_ack_i ( wb_c_frv_8bram_imem_ack  ),
+  // dmem
+  .wb_dmem_cyc_o ( wb_c_frv_8bram_dmem_cyc  ),
+  .wb_dmem_stb_o ( wb_c_frv_8bram_dmem_stb  ),
+  .wb_dmem_we_o  ( wb_c_frv_8bram_dmem_we   ),
+  .wb_dmem_ack_i ( wb_c_frv_8bram_dmem_ack  ),
+  .wb_dmem_be_o  ( wb_c_frv_8bram_dmem_be   ),
+  .wb_dmem_dat_i ( wb_c_frv_8bram_dmem_rdat ),
+  .wb_dmem_adr_o ( wb_c_frv_8bram_dmem_adr  ),
+  .wb_dmem_dat_o ( wb_c_frv_8bram_dmem_wdat )
+);
+
                                                         
 // mmmmm           m                                      
 //   #    m mm   mm#mm   mmm    m mm   mmm    mmm   m mm  
@@ -1028,6 +1174,32 @@ wb_intercon i_wb_intercon (
   .wb_fazyrv4ccx_ack_o    ( wb_c_frv_4ccx_ack   ),
   .wb_fazyrv4ccx_err_o    ( /* nc */            ),
   .wb_fazyrv4ccx_rty_o    ( /* nc */            ),
+  // 
+  .wb_fazyrv1bram_adr_i   ( wb_c_frv_1bram_adr  ),
+  .wb_fazyrv1bram_dat_i   ( wb_c_frv_1bram_wdat ),
+  .wb_fazyrv1bram_sel_i   ( wb_c_frv_1bram_be   ),
+  .wb_fazyrv1bram_we_i    ( wb_c_frv_1bram_we   ),
+  .wb_fazyrv1bram_cyc_i   ( wb_c_frv_1bram_cyc  ),
+  .wb_fazyrv1bram_stb_i   ( wb_c_frv_1bram_stb  ),
+  .wb_fazyrv1bram_cti_i   ( 3'b0                ),
+  .wb_fazyrv1bram_bte_i   ( 2'b0                ),
+  .wb_fazyrv1bram_rdt_o   ( wb_c_frv_1bram_rdat ),
+  .wb_fazyrv1bram_ack_o   ( wb_c_frv_1bram_ack  ),
+  .wb_fazyrv1bram_err_o   ( /* nc */            ),
+  .wb_fazyrv1bram_rty_o   ( /* nc */            ),
+  //
+  .wb_fazyrv8bram_adr_i   ( wb_c_frv_8bram_adr  ),
+  .wb_fazyrv8bram_dat_i   ( wb_c_frv_8bram_wdat ),
+  .wb_fazyrv8bram_sel_i   ( wb_c_frv_8bram_be   ),
+  .wb_fazyrv8bram_we_i    ( wb_c_frv_8bram_we   ),
+  .wb_fazyrv8bram_cyc_i   ( wb_c_frv_8bram_cyc  ),
+  .wb_fazyrv8bram_stb_i   ( wb_c_frv_8bram_stb  ),
+  .wb_fazyrv8bram_cti_i   ( 3'b0                ),
+  .wb_fazyrv8bram_bte_i   ( 2'b0                ),
+  .wb_fazyrv8bram_rdt_o   ( wb_c_frv_8bram_rdat ),
+  .wb_fazyrv8bram_ack_o   ( wb_c_frv_8bram_ack  ),
+  .wb_fazyrv8bram_err_o   ( /* nc */            ),
+  .wb_fazyrv8bram_rty_o   ( /* nc */            ),
   //
   .wb_oled_dma_adr_i      ( wb_c_oled_dma_adr   ),
   .wb_oled_dma_dat_i      ( 32'b0               ),

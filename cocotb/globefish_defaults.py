@@ -20,7 +20,7 @@ gl = os.getenv("GL", False)
 hdl_toplevel = "globefish_tb"
 
 async def set_defaults(dut, core):
-    assert core in [1,2,4,8]
+    assert core in ["1", "2", "4", "8", "4ccx", "1bram", "8bram"]
     dut.en_p.value = 1
     dut.en_p2.value = 0
     dut.en_wb.value = 1
@@ -29,16 +29,20 @@ async def set_defaults(dut, core):
     dut.en_frv2.value = 0
     dut.en_frv4.value = 0
     dut.en_frv8.value = 0
-    dut.en_frv4ccx.value = 0 # TODO
-    
-    if core == 1:
+    dut.en_frv4ccx.value = 0
+       
+    if core == "1":
         dut.en_frv1.value = 1
-    if core == 2:
+    elif core == "2":
         dut.en_frv2.value = 1
-    if core == 4:
+    elif core == "4":
         dut.en_frv4.value = 1
-    if core == 8:
+    elif core == "8":
         dut.en_frv8.value = 1
+    elif core == "4ccx":
+        dut.en_frv4ccx.value = 1
+    else:
+        raise NotImplementedError("TODO")
 
 async def enable_power(dut):
     dut.VDD.value = 1
@@ -100,12 +104,15 @@ def sim_setup(test_module, firmware):
             sources.append(proj_path / "../macros/frv_4/frv_4_nl.sv")
             sources.append(proj_path / "../macros/frv_8/frv_8_nl.sv")
             sources.append(proj_path / "../macros/frv_4ccx/frv_4ccx_nl.sv")
+            sources.append(proj_path / "../macros/frv_1bram/frv_1bram_nl.sv")
+            sources.append(proj_path / "../macros/frv_8bram/frv_8bram_nl.sv")
         else:
             sources.append(proj_path / "../macros/frv_1/frv_1.sv")
             sources.append(proj_path / "../macros/frv_2/frv_2.sv")
             sources.append(proj_path / "../macros/frv_4/frv_4.sv")
             sources.append(proj_path / "../macros/frv_8/frv_8.sv")
-            
+            sources.append(proj_path / "../macros/frv_1bram/frv_1bram.sv")
+            sources.append(proj_path / "../macros/frv_8bram/frv_8bram.sv")
             # For frv4ccx we keep the nl to avoid issues with uniquification
             #sources.append(proj_path / "../macros/frv_8/frv_4ccx_nl.sv")
             

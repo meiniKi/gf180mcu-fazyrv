@@ -1,5 +1,5 @@
 
-SUBDIRS := frv_1 frv_2 frv_4 frv_8 frv_4ccx
+SUBDIRS := frv_1 frv_2 frv_4 frv_8 frv_4ccx frv_1bram frv_8bram
 
 .PHONY: all
 all: $(SUBDIRS)

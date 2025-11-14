@@ -17,7 +17,7 @@ FIRMWARE = '../firmware/test_toggle/build/firmware.hex'
 
 first_test = True
 
-@cocotb.parametrize(core=[1,2,4,8])
+@cocotb.parametrize(core=["1","2","4","8"])
 async def test_toggle(dut, core):
     global first_test
     logger = logging.getLogger(TEST_MODULE)
@@ -38,7 +38,7 @@ async def test_toggle(dut, core):
             prev_val = curr_val
     
     monitor_task = cocotb.start_soon(mon())
-    await ClockCycles(dut.clk, 15000//int(math.log2(1+core)))
+    await ClockCycles(dut.clk, 15000//int(math.log2(1+int(core))))
     monitor_task.cancel()
 
     logger.info("[RESULT] GPO[0] toggled {} times.".format(toggle_count))
