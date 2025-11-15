@@ -18,7 +18,7 @@ FIRMWARE = '../firmware/test_uart/build/firmware.hex'
 
 first_test = True
 
-@cocotb.parametrize(core=["1","2","4","8"])
+@cocotb.parametrize(core=["1", "2", "4", "8", "4ccx", "1bram", "8bram"])
 async def test_uart(dut, core):
     global first_test
     logger = logging.getLogger(TEST_MODULE)
@@ -30,7 +30,7 @@ async def test_uart(dut, core):
     uart_source = UartSource(dut.uart_rx, baud=115200, bits=8)
     uart_sink = UartSink(dut.uart_tx, baud=115200, bits=8)
 
-    await ClockCycles(dut.clk, 50000//int(math.log2(1+int(core))))
+    await ClockCycles(dut.clk, 50000//int(math.log2(1+int(core[0]))))
         
     await uart_source.write(b'C')
     

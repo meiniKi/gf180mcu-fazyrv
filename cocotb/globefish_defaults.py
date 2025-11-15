@@ -17,8 +17,7 @@ pdk = os.getenv("PDK", "gf180mcuD")
 scl = os.getenv("SCL", "gf180mcu_fd_sc_mcu7t5v0")
 gl = os.getenv("GL", False)
 
-FULL_CHIP = True
-
+FULL_CHIP = os.getenv("SIM_FULL_CHIP", "1") == "1"
 hdl_toplevel = "chip_top_tb" if FULL_CHIP is True else "globefish_tb"
 
 async def set_defaults(dut, core):

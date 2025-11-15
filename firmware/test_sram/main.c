@@ -5,6 +5,8 @@
 #define ADR_SRAM ((volatile uint32_t*)(0x10000000))
 #define ADR_RAM  ((volatile uint32_t*)(0x20000000))
 
+#define CSR_GPOE_OFFSET 2
+
 unsigned long pattern(unsigned long addr, unsigned long seed)
 {
   unsigned long x = addr + seed;
@@ -17,6 +19,9 @@ unsigned long pattern(unsigned long addr, unsigned long seed)
 
 void main(void)
 {
+  // Set GPIO to ouput
+  *(ADR_CSR + CSR_GPOE_OFFSET) = 0xFF;
+
   // Ensure this does not conflict with the stack!
   // Word offsets
   uint32_t offsets[] = {0, 211, 256, 511, 512, 1023, 1024, 1701};

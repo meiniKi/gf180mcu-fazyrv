@@ -5,8 +5,13 @@
 #define ADR_SRAM ((volatile uint32_t*)(0x10000000))
 #define ADR_RAM  ((volatile uint32_t*)(0x20000000))
 
+#define CSR_GPOE_OFFSET 2
+
 void main(void)
 {
+  // Set GPIO to ouput
+  *(ADR_CSR + CSR_GPOE_OFFSET) = 0xFF;
+  
   // SoC 2048 words -> 8192 bytes
   // Stack near top
   // test up to 7992 bytes = 1998 words
