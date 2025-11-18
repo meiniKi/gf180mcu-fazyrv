@@ -31,6 +31,7 @@ async def set_defaults(dut, core):
     dut.en_frv4.value = 0
     dut.en_frv8.value = 0
     dut.en_frv4ccx.value = 0
+    dut.ccx4_res.value = 0
        
     if core == "1":
         dut.en_frv1.value = 1
@@ -49,7 +50,7 @@ async def set_defaults(dut, core):
         # if en_frv4ccx == 0 -> ccx4_res[1] is en_8bram
         dut.ccx4_res.value = 2
     else:
-        raise NotImplementedError("TODO")
+        raise NotImplementedError("Unknown")
 
 async def enable_power(dut):
     dut.VDD.value = 1
@@ -99,7 +100,16 @@ def sim_setup(test_module, firmware):
         sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / "primitives.v")
 
         # We use the powered netlist
-        sources.append(proj_path / f"../final/pnl/{hdl_toplevel}.pnl.v")
+        sources.append(proj_path / f"../final/pnl/chip_top.pnl.v")
+        
+        # Use powered macros
+        sources.append(proj_path / "../macros/frv_1/final/pnl/frv_1.pnl.v")
+        sources.append(proj_path / "../macros/frv_2/final/pnl/frv_2.pnl.v")
+        sources.append(proj_path / "../macros/frv_4/final/pnl/frv_4.pnl.v")
+        sources.append(proj_path / "../macros/frv_8/final/pnl/frv_8.pnl.v")
+        sources.append(proj_path / "../macros/frv_4ccx/final/pnl/frv_4ccx.pnl.v")
+        sources.append(proj_path / "../macros/frv_1bram/final/pnl/frv_1bram.pnl.v")
+        sources.append(proj_path / "../macros/frv_8bram/final/pnl/frv_8bram.pnl.v")
 
         defines = {"FUNCTIONAL": True, "USE_POWER_PINS": True}
     else:
@@ -142,6 +152,9 @@ def sim_setup(test_module, firmware):
             sources.append(proj_path / "../ip/FazyRV/rtl/fazyrv_core.sv")
             sources.append(proj_path / "../ip/FazyRV/rtl/fazyrv_top.sv")
 
+        if FULL_CHIP:
+            sources += [proj_path / "../src/chip_core.sv",
+                        proj_path / "../src/chip_top.sv"]
             
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_mux.v")
         sources.append(proj_path / "../ip/rggen-verilog-rtl/rggen_bit_field.v")
@@ -195,10 +208,7 @@ def sim_setup(test_module, firmware):
         "qspi_psram.sv",
         "chip_top_tb.sv" if FULL_CHIP is True else "hachure_tb.sv",
     ]
-    
-    if FULL_CHIP:
-        sources += [proj_path / "../src/chip_core.sv",
-                    proj_path / "../src/chip_top.sv"]
+
 
     build_args = []
 

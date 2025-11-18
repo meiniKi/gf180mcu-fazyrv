@@ -130,6 +130,7 @@ localparam MAX_SPI_LENGTH = 1024*64/8;
 
 localparam SPI_PREFETCH   = 0;
 
+
 // Clocks
 logic clk_p;
 logic clk_p2;
@@ -553,7 +554,7 @@ always_ff @(posedge clk_i or negedge rst_sync_n) begin
     rst_delay_cnt <= '0;
     rst_dly_n     <= 1'b0;
   end else begin
-    if (rst_delay_cnt != 4'd15)
+    if (rst_delay_cnt != 5'd15)
       rst_delay_cnt <= rst_delay_cnt + 1'b1;
     else
       rst_dly_n <= 1'b1;
@@ -651,15 +652,16 @@ assign {  clk_p2,
           clk_c_frv_1bram,
           clk_c_frv_8bram } = cg_clks;
 
-`ifdef NO_CLOCK_GATES_TODO
+`ifndef NO_CLOCK_GATES_TODO
 genvar i;
 generate
-  // TODO same reset behavior as below!
   for (i = 0; i < N_CLOCKS; i = i + 1) begin : i_cg
-    gf180mcu_fd_sc_mcu7t5v0__icgtp_1 i_cg ( 
+    gf180mcu_fd_sc_mcu7t5v0__icgtp_4 i_cg ( 
       `ifdef USE_POWER_PINS
       .VDD  ( VDD           ),
       .VSS  ( VSS           ),
+      .VNW  ( VDD           ),
+      .VPW  ( VSS           ),
       `endif
       .TE   ( 1'b0          ),
       .E    ( cg_enables[i] ),
@@ -698,7 +700,7 @@ endgenerate
 // #          "# #   "m  """m         #  #m#        #    # #        #    #    #
 //  "mmm" "mmm#" #    " "mmm"         "#mm#m         "mmm" #      mm#mm   #mm# 
                                                                                                                                                           
-
+/* verilator lint_off PINCONNECTEMPTY */
 CSR #(
   .USE_STALL ( 0 )
 ) i_CSR (
@@ -737,7 +739,7 @@ CSR #(
   .i_Irqs_spi_rdy       ( spi_rdy             ),
   .o_Guard_gd_ef_xip    ( guard_xip           )
 );                               
-
+/* verilator lint_on PINCONNECTEMPTY */
 
 //          mmmm  mmmmm  mmmmm 
 //         #"   " #   "#   #   
@@ -837,6 +839,7 @@ wb_qspi_mem i_wb_qspi_mem (
 logic gd_wb_xip_ack;
 assign wb_p_ef_xip_ack = gd_wb_xip_ack & guard_xip;
 
+/* verilator lint_off PINCONNECTEMPTY */
 wb_to_ahb3lite i_wb_to_ahb3lite (
   .clk_i            ( clk_p2                  ),
   .rst_n_i          ( rst_p_n                 ),
@@ -866,6 +869,7 @@ wb_to_ahb3lite i_wb_to_ahb3lite (
   .mHWDATA          ( /* nc */                ),
   .mHPROT           ( /* nc */                )
 );
+/* verilator lint_on PINCONNECTEMPTY */
 
 MS_QSPI_XIP_CACHE_ahbl #(
   .NUM_LINES ( 32 ),
@@ -902,6 +906,10 @@ EF_UART_WB #(
   .GFLEN ( 8 ),
   .FAW   ( 4 )
 ) i_uart (
+  `ifdef USE_POWER_PINS
+  .vpwr   ( VDD             ),
+  .vgnd   ( VSS             ),
+  `endif
   .clk_i  ( clk_p           ),
   .rst_i  ( ~rst_p_n        ),
   .adr_i  ( wb_p_uart_adr   ),
@@ -1170,7 +1178,7 @@ frv_8bram i_frv_8bram (
 //                                                      
 //#########################################################                                                      
 
-
+/* verilator lint_off PINCONNECTEMPTY */
 wb_intercon i_wb_intercon (
   .wb_clk_i               ( clk_wb              ),
   .wb_rst_i               ( ~rst_wb_n           ),
@@ -1370,6 +1378,7 @@ wb_intercon i_wb_intercon (
   .wb_efxip_err_i         ( 1'b0                ),
   .wb_efxip_rty_i         ( 1'b0                )
 );
+/* verilator lint_on PINCONNECTEMPTY */
 
 
 

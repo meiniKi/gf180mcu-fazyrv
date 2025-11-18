@@ -28,13 +28,13 @@ DESIGN_NAME: chip_top
 VERILOG_FILES:
 - dir::../src/chip_top.sv
 - dir::../src/chip_core.sv
-- dir::../macros/frv_1/frv_1_nl.sv
-- dir::../macros/frv_2/frv_2_nl.sv
-- dir::../macros/frv_4/frv_4_nl.sv
-- dir::../macros/frv_8/frv_8_nl.sv
-- dir::../macros/frv_4ccx/frv_4ccx_nl.sv
-- dir::../macros/frv_1bram/frv_1bram_nl.sv
-- dir::../macros/frv_8bram/frv_8bram_nl.sv
+#- dir::../macros/frv_1/frv_1_nl.sv
+#- dir::../macros/frv_2/frv_2_nl.sv
+#- dir::../macros/frv_4/frv_4_nl.sv
+#- dir::../macros/frv_8/frv_8_nl.sv
+#- dir::../macros/frv_4ccx/frv_4ccx_nl.sv
+#- dir::../macros/frv_1bram/frv_1bram_nl.sv
+#- dir::../macros/frv_8bram/frv_8bram_nl.sv
 - dir::../ip/rggen-verilog-rtl/rggen_mux.v
 - dir::../ip/rggen-verilog-rtl/rggen_bit_field.v
 - dir::../ip/rggen-verilog-rtl/rggen_default_register.v
@@ -67,6 +67,12 @@ VERILOG_FILES:
 - dir::../ip/ahb3lite_wb_bridge/wb_to_ahb3lite.v
 - dir::../ip/MS_QSPI_XIP_CACHE/hdl/rtl/MS_QSPI_XIP_CACHE.v
 - dir::../ip/MS_QSPI_XIP_CACHE/hdl/rtl/bus_wrappers/MS_QSPI_XIP_CACHE_ahbl.v
+
+#LINTER_VLT:
+#- dir::../librelane/waivers.vlt
+
+VERILOG_DEFINES:
+- CLKG_GF180
 
 VERILOG_INCLUDE_DIRS:
 - dir::../ip/rggen-verilog-rtl
@@ -327,7 +333,7 @@ MACROS:
         - dir::../macros/frv_1/final/lib/max_ss_125C_4v50/frv_1__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_1:
-        location: [670, 500]
+        location: [495, 520]
         orientation: N
 
   frv_2:
@@ -346,7 +352,7 @@ MACROS:
         - dir::../macros/frv_2/final/lib/max_ss_125C_4v50/frv_2__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_2:
-        location: [1370, 500]
+        location: [1235, 520]
         orientation: N
 
   frv_4:
@@ -365,7 +371,7 @@ MACROS:
         - dir::../macros/frv_4/final/lib/max_ss_125C_4v50/frv_4__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_4:
-        location: [2120, 500]
+        location: [1985, 520]
         orientation: N
 
   frv_8:
@@ -384,7 +390,7 @@ MACROS:
         - dir::../macros/frv_8/final/lib/max_ss_125C_4v50/frv_8__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_8:
-        location: [2820, 500]
+        location: [2745, 520]
         orientation: N
 
   frv_4ccx:
@@ -403,7 +409,7 @@ MACROS:
         - dir::../macros/frv_4ccx/final/lib/max_ss_125C_4v50/frv_4ccx__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_4ccx:
-        location: [2820, 1720]
+        location: [2745, 1894]
         orientation: N
 
   frv_1bram:
@@ -422,7 +428,7 @@ MACROS:
         - dir::../macros/frv_1bram/final/lib/max_ss_125C_4v50/frv_1bram__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_1bram:
-        location: [1370, 1720]
+        location: [1047, 1894]
         orientation: N
 
   frv_8bram:
@@ -441,7 +447,7 @@ MACROS:
         - dir::../macros/frv_8bram/final/lib/max_ss_125C_4v50/frv_8bram__max_ss_125C_4v50.lib
     instances:
       i_chip_core.i_hachure_soc.i_frv_8bram:
-        location: [2120, 1720]
+        location: [1901, 1894]
         orientation: N
 
 
@@ -513,14 +519,14 @@ MACROS:
 # This is an alternative method compared to
 # specifying the power connections in the RTL
 # --> Defined in RTL: regex not matching?
-#PDN_MACRO_CONNECTIONS:
-#- "i_chip_core.i_hachure_soc.i_frv_1 VDD VSS VDD VSS"
-#- "i_chip_core.i_hachure_soc.i_frv_2 VDD VSS VDD VSS"
-#- "i_chip_core.i_hachure_soc.i_frv_4 VDD VSS VDD VSS"
-#- "i_chip_core.i_hachure_soc.i_frv_8 VDD VSS VDD VSS"
-#- "i_chip_core.i_hachure_soc.i_frv_4ccx VDD VSS VDD VSS"
-#- "i_chip_core.i_hachure_soc.i_frv_1bram VDD VSS VDD VSS"
-#- "i_chip_core.i_hachure_soc.i_frv_8bram VDD VSS VDD VSS"
+PDN_MACRO_CONNECTIONS:
+- "i_chip_core.i_hachure_soc.i_frv_1 VDD VSS VDD VSS"
+- "i_chip_core.i_hachure_soc.i_frv_2 VDD VSS VDD VSS"
+- "i_chip_core.i_hachure_soc.i_frv_4 VDD VSS VDD VSS"
+- "i_chip_core.i_hachure_soc.i_frv_8 VDD VSS VDD VSS"
+- "i_chip_core.i_hachure_soc.i_frv_4ccx VDD VSS VDD VSS"
+- "i_chip_core.i_hachure_soc.i_frv_1bram VDD VSS VDD VSS"
+- "i_chip_core.i_hachure_soc.i_frv_8bram VDD VSS VDD VSS"
 #- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
 #- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
 #- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"

@@ -11,6 +11,7 @@ void main(void)
 {
   // Set GPIO to ouput
   *(ADR_CSR + CSR_GPOE_OFFSET) = 0xFF;
+  GPO = 0;
   
   // SoC 2048 words -> 8192 bytes
   // Stack near top

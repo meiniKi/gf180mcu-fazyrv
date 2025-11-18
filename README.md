@@ -80,7 +80,14 @@ FazyRV hachure SoC WiP.
 | 0x7000_0000  | EF_XIP    | Secondary XIP Peripheral       |
 
 
-
+## Run Implementation
+```shell
+nix-shell
+make librelane-macro-nodrv-fast # or make librelane-macro or make librelane-macro-nodrc
+make copy-macro
+make librelane # or make librelane-nodrc
+make copy-final
+```
 
 ## Precheck
 

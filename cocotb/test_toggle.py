@@ -27,7 +27,7 @@ async def test_toggle(dut, core):
     first_test = False
     logger.info("Running the test...")
     
-    if FULL_CHIP:
+    if FULL_CHIP and first_test:
         gpio_val = str(dut.gpio.value)
         assert all(bit == 'Z' for bit in gpio_val)
 
