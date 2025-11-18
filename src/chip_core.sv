@@ -326,7 +326,7 @@ assign qspi_mem_sdi     = bidir_in[36:33];  // input data
 //  m  #                                                         
 //   ""                                                          
 
-globefish_soc i_globefish_soc (
+hachure_soc i_hachure_soc (
   `ifdef USE_POWER_PINS
   .VDD                ( VDD               ),
   .VSS                ( VSS               ),

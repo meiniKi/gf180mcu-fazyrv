@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 // -----------------------------------------------------------------------------
 // File  :  chip_top_tb.sv
-// Usage :  Testbench for the globefish SoC at top level
+// Usage :  Testbench for the hachure SoC at top level
 // -----------------------------------------------------------------------------
 
 `timescale 1ns/1ps

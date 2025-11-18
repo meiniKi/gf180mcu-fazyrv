@@ -18,7 +18,7 @@ scl = os.getenv("SCL", "gf180mcu_fd_sc_mcu7t5v0")
 gl = os.getenv("GL", False)
 
 FULL_CHIP = os.getenv("SIM_FULL_CHIP", "1") == "1"
-hdl_toplevel = "chip_top_tb" if FULL_CHIP is True else "globefish_tb"
+hdl_toplevel = "chip_top_tb" if FULL_CHIP is True else "hachure_tb"
 
 async def set_defaults(dut, core):
     assert core in ["1", "2", "4", "8", "4ccx", "1bram", "8bram"]
@@ -165,7 +165,7 @@ def sim_setup(test_module, firmware):
         sources.append(proj_path / "../src/wb_spi.sv")
         sources.append(proj_path / "../src/wb_qspi_mem.sv")
         sources.append(proj_path / "../src/tiny_wb_dma_oled_spi.sv")
-        sources.append(proj_path / "../src/globefish_soc.sv")
+        sources.append(proj_path / "../src/hachure_soc.sv")
 
     sources += [
         # IO pad models
@@ -193,7 +193,7 @@ def sim_setup(test_module, firmware):
         # Testbench and helpers
         "spiflash.v",
         "qspi_psram.sv",
-        "chip_top_tb.sv" if FULL_CHIP is True else "globefish_tb.sv",
+        "chip_top_tb.sv" if FULL_CHIP is True else "hachure_tb.sv",
     ]
     
     if FULL_CHIP:

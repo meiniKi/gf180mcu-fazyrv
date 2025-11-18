@@ -2,14 +2,14 @@
 // Copyright (c) 2025 Meinhard Kissich
 // SPDX-License-Identifier: MIT
 // -----------------------------------------------------------------------------
-// File  :  globefish_tb.sv
-// Usage :  Testbench for the globefish SoC
+// File  :  hachure_tb.sv
+// Usage :  Testbench for the hachure SoC
 // -----------------------------------------------------------------------------
 
 `timescale 1ns/1ps
 `default_nettype none
 
-module globefish_tb;
+module hachure_tb;
 
 localparam RAMSIZE = 1024*1024*16;
 
@@ -103,7 +103,7 @@ assign mem_sdio[3] = mem_core_sdoen[3] ? mem_core_sdo[3] : 1'bz;
 // "mmm#" "#m#"   "mmm"                   
 
 
-globefish_soc i_globefish_soc (
+hachure_soc i_hachure_soc (
   `ifdef USE_POWER_PINS
   .VDD                ( VDD             ),
   .VSS                ( VSS             ),
@@ -197,8 +197,8 @@ qspi_psram #( .DEPTH(RAMSIZE) ) i_qspi_psram (
 
 
 initial begin
-  $dumpfile("globefish_tb.fst");
-  $dumpvars(0, globefish_tb);
+  $dumpfile("hachure_tb.fst");
+  $dumpvars(0, hachure_tb);
 end
 
 

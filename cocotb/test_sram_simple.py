@@ -10,7 +10,7 @@ from cocotb.clock import Clock
 from cocotb.triggers import Timer, Edge, RisingEdge, FallingEdge, ClockCycles
 from cocotb_tools.runner import get_runner
 
-from globefish_defaults import *
+from hachure_defaults import *
 
 TEST_MODULE = "test_sram_simple"
 FIRMWARE = '../firmware/test_sram_simple/build/firmware.hex'

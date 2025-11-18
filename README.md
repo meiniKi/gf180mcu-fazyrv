@@ -1,6 +1,6 @@
-# gf180mcu FazyRV globefish SoC
+# gf180mcu FazyRV hachure SoC
 
-FazyRV globefish SoC WiP.
+FazyRV hachure SoC WiP.
 
 ![Block Diagram](doc/block.png)
 

@@ -17,7 +17,7 @@ pdk = os.getenv("PDK", "gf180mcuD")
 scl = os.getenv("SCL", "gf180mcu_fd_sc_mcu7t5v0")
 gl = os.getenv("GL", False)
 
-hdl_toplevel = "globefish_tb"
+hdl_toplevel = "hachure_tb"
 
 simple_test = { 'firmware': '../firmware/simple/build/simple.hex' }
 
@@ -118,7 +118,7 @@ def chip_top_runner():
         proj_path / "../ip/gf180mcu_ws_ip__logo/vh/gf180mcu_ws_ip__logo.v",
         
         # Testbench
-        #"globefish_tb.sv",
+        #"hachure_tb.sv",
     ]
 
     build_args = []

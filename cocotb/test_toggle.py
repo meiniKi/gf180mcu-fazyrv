@@ -9,7 +9,7 @@ import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import Timer, Edge, RisingEdge, FallingEdge, ClockCycles
 
-from globefish_defaults import *
+from hachure_defaults import *
 
 TEST_MODULE = "test_toggle"
 FIRMWARE = '../firmware/test_toggle/build/firmware.hex'

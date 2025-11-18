@@ -142,7 +142,7 @@ SRC_SOC =   src/reset_sync.sv \
 			src/wb_qspi_mem.sv \
 			src/tiny_wb_dma_oled_spi.sv \
 			macros/frv_1/frv_1_nl.sv \
-			src/globefish_soc.sv \
+			src/hachure_soc.sv \
 			ip/rggen-verilog-rtl/rggen_adapter_common.v \
 			ip/rggen-verilog-rtl/rggen_wishbone_adapter.v \
 			ip/rggen-verilog-rtl/rggen_mux.v \

@@ -20,13 +20,13 @@ add_pdn_stripe -grid {} -layer Metal4 -width 2.36 -offset 1.18 -spacing 0.28 -pi
 
 """
 
-controller_macros = [ "i_chip_core.i_globefish_soc.i_frv_1",
-                        "i_chip_core.i_globefish_soc.i_frv_2",
-                        "i_chip_core.i_globefish_soc.i_frv_4",
-                        "i_chip_core.i_globefish_soc.i_frv_8",
-                        "i_chip_core.i_globefish_soc.i_frv_4ccx",
-                        "i_chip_core.i_globefish_soc.i_frv_1bram",
-                        "i_chip_core.i_globefish_soc.i_frv_8bram"]
+controller_macros = [ "i_chip_core.i_hachure_soc.i_frv_1",
+                        "i_chip_core.i_hachure_soc.i_frv_2",
+                        "i_chip_core.i_hachure_soc.i_frv_4",
+                        "i_chip_core.i_hachure_soc.i_frv_8",
+                        "i_chip_core.i_hachure_soc.i_frv_4ccx",
+                        "i_chip_core.i_hachure_soc.i_frv_1bram",
+                        "i_chip_core.i_hachure_soc.i_frv_8bram"]
 
 
 for i, contr in enumerate(controller_macros):

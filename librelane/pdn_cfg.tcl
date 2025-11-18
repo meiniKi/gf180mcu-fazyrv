@@ -234,7 +234,7 @@ add_pdn_stripe -grid sram_macros_NS -layer Metal4 -width 2.36 -offset 1.18 -spac
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_1 \
+    -instances i_chip_core.i_hachure_soc.i_frv_1 \
     -name controller_0 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
@@ -253,7 +253,7 @@ add_pdn_stripe -grid controller_0 -layer Metal4 -width 2.36 -offset 1.18 -spacin
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_2 \
+    -instances i_chip_core.i_hachure_soc.i_frv_2 \
     -name controller_1 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
@@ -272,7 +272,7 @@ add_pdn_stripe -grid controller_1 -layer Metal4 -width 2.36 -offset 1.18 -spacin
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_4 \
+    -instances i_chip_core.i_hachure_soc.i_frv_4 \
     -name controller_2 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
@@ -291,7 +291,7 @@ add_pdn_stripe -grid controller_2 -layer Metal4 -width 2.36 -offset 1.18 -spacin
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_8 \
+    -instances i_chip_core.i_hachure_soc.i_frv_8 \
     -name controller_3 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
@@ -310,7 +310,7 @@ add_pdn_stripe -grid controller_3 -layer Metal4 -width 2.36 -offset 1.18 -spacin
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_4ccx \
+    -instances i_chip_core.i_hachure_soc.i_frv_4ccx \
     -name controller_4 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
@@ -329,7 +329,7 @@ add_pdn_stripe -grid controller_4 -layer Metal4 -width 2.36 -offset 1.18 -spacin
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_1bram \
+    -instances i_chip_core.i_hachure_soc.i_frv_1bram \
     -name controller_5 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
@@ -348,7 +348,7 @@ add_pdn_stripe -grid controller_5 -layer Metal4 -width 2.36 -offset 1.18 -spacin
 
 define_pdn_grid \
     -macro \
-    -instances i_chip_core.i_globefish_soc.i_frv_8bram \
+    -instances i_chip_core.i_hachure_soc.i_frv_8bram \
     -name controller_6 \
     -starts_with POWER \
     -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"

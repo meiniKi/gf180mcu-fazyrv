@@ -13,7 +13,7 @@ from cocotb.triggers import Edge
 from cocotb.triggers import First
 from cocotb.queue import Queue
 
-from globefish_defaults import *
+from hachure_defaults import *
 
 TEST_MODULE = "test_efspi"
 FIRMWARE = '../firmware/test_efspi/build/firmware.hex'

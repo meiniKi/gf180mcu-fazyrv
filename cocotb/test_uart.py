@@ -11,7 +11,7 @@ from cocotb.triggers import Timer, Edge, RisingEdge, FallingEdge, ClockCycles
 from cocotb_tools.runner import get_runner
 from cocotbext.uart import UartSource, UartSink
 
-from globefish_defaults import *
+from hachure_defaults import *
 
 TEST_MODULE = "test_uart"
 FIRMWARE = '../firmware/test_uart/build/firmware.hex'

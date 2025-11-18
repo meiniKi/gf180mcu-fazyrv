@@ -57,7 +57,7 @@ VERILOG_FILES:
 - dir::../src/wb_spi.sv
 - dir::../src/wb_qspi_mem.sv
 - dir::../src/tiny_wb_dma_oled_spi.sv
-- dir::../src/globefish_soc.sv
+- dir::../src/hachure_soc.sv
 - dir::../ip/EF_IP_UTIL/hdl/ef_util_lib.v
 - dir::../ip/EF_UART/hdl/rtl/EF_UART.v
 - dir::../ip/EF_UART/hdl/rtl/bus_wrappers/EF_UART_WB.v
@@ -326,7 +326,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_1/final/lib/max_ss_125C_4v50/frv_1__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_1:
+      i_chip_core.i_hachure_soc.i_frv_1:
         location: [670, 500]
         orientation: N
 
@@ -345,7 +345,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_2/final/lib/max_ss_125C_4v50/frv_2__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_2:
+      i_chip_core.i_hachure_soc.i_frv_2:
         location: [1370, 500]
         orientation: N
 
@@ -364,7 +364,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_4/final/lib/max_ss_125C_4v50/frv_4__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_4:
+      i_chip_core.i_hachure_soc.i_frv_4:
         location: [2120, 500]
         orientation: N
 
@@ -383,7 +383,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_8/final/lib/max_ss_125C_4v50/frv_8__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_8:
+      i_chip_core.i_hachure_soc.i_frv_8:
         location: [2820, 500]
         orientation: N
 
@@ -402,7 +402,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_4ccx/final/lib/max_ss_125C_4v50/frv_4ccx__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_4ccx:
+      i_chip_core.i_hachure_soc.i_frv_4ccx:
         location: [2820, 1720]
         orientation: N
 
@@ -421,7 +421,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_1bram/final/lib/max_ss_125C_4v50/frv_1bram__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_1bram:
+      i_chip_core.i_hachure_soc.i_frv_1bram:
         location: [1370, 1720]
         orientation: N
 
@@ -440,7 +440,7 @@ MACROS:
       "*_ss_125C_4v50":
         - dir::../macros/frv_8bram/final/lib/max_ss_125C_4v50/frv_8bram__max_ss_125C_4v50.lib
     instances:
-      i_chip_core.i_globefish_soc.i_frv_8bram:
+      i_chip_core.i_hachure_soc.i_frv_8bram:
         location: [2120, 1720]
         orientation: N
 
@@ -461,52 +461,52 @@ MACROS:
         - pdk_dir::libs.ref/gf180mcu_fd_ip_sram/lib/gf180mcu_fd_ip_sram__sram512x8m8wm1__ss_125C_4v50.lib
     instances:
       # Make sure to specify the SRAMs in pdn_cfg.tcl
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[0].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[0].u_ram.sram_0:
         location: [1490, 2430]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[1].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[1].u_ram.sram_0:
         location: [1990, 2430]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[2].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[2].u_ram.sram_0:
         location: [2490, 2430]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[3].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[0].i_ram512x32.gen_ram8[3].u_ram.sram_0:
         location: [2990, 2430]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[0].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[0].u_ram.sram_0:
         location: [1490, 3000]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[1].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[1].u_ram.sram_0:
         location: [1990, 3000]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[2].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[2].u_ram.sram_0:
         location: [2490, 3000]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[3].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[1].i_ram512x32.gen_ram8[3].u_ram.sram_0:
         location: [2990, 3000]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[0].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[0].u_ram.sram_0:
         location: [1490, 3570]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[1].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[1].u_ram.sram_0:
         location: [1990, 3570]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[2].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[2].u_ram.sram_0:
         location: [2490, 3570]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[3].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[2].i_ram512x32.gen_ram8[3].u_ram.sram_0:
         location: [2990, 3570]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[0].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[0].u_ram.sram_0:
         location: [1490, 4140]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[1].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[1].u_ram.sram_0:
         location: [1990, 4140]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[2].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[2].u_ram.sram_0:
         location: [2490, 4140]
         orientation: N
-      i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[3].u_ram.sram_0:
+      i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank[3].i_ram512x32.gen_ram8[3].u_ram.sram_0:
         location: [2990, 4140]
         orientation: N
 
@@ -514,29 +514,29 @@ MACROS:
 # specifying the power connections in the RTL
 # --> Defined in RTL: regex not matching?
 #PDN_MACRO_CONNECTIONS:
-#- "i_chip_core.i_globefish_soc.i_frv_1 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_frv_2 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_frv_4 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_frv_8 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_frv_4ccx VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_frv_1bram VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_frv_8bram VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
-#- "i_chip_core.i_globefish_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_1 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_2 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_4 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_8 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_4ccx VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_1bram VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_frv_8bram VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[0\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[1\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[2\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[0\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[1\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[2\].u_ram.sram_0 VDD VSS VDD VSS"
+#- "i_chip_core.i_hachure_soc.i_wb_ram.gen_ram_bank\[3\].i_ram512x32.gen_ram8\[3\].u_ram.sram_0 VDD VSS VDD VSS"
 
 
 PDN_CFG: dir::pdn_cfg.tcl

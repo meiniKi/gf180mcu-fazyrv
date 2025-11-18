@@ -1,8 +1,8 @@
 // Copyright (c) 2025 Meinhard Kissich
 // SPDX-License-Identifier: MIT
 // -----------------------------------------------------------------------------
-// File  :  globefish_soc.sv
-// Usage :  FazyRV globefish SoC
+// File  :  hachure_soc.sv
+// Usage :  FazyRV hachure SoC
 //
 // Ports
 //  - clk_i               System clock
@@ -53,7 +53,7 @@
 //  - xip_oen_o           XIP output enable
 // -----------------------------------------------------------------------------
 
-module globefish_soc (
+module hachure_soc (
   `ifdef USE_POWER_PINS
   inout  wire         VDD,
   inout  wire         VSS,
