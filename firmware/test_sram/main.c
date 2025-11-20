@@ -24,7 +24,7 @@ void main(void)
 
   // Ensure this does not conflict with the stack!
   // Word offsets
-  uint32_t offsets[] = {0, 211, 256, 511, 512, 1023, 1024, 1701};
+  uint32_t offsets[] = {0, 211, 256, 511, 512, 1023, 1024}; //, 1701};
   unsigned int n_offsets = sizeof(offsets) / sizeof(offsets[0]);
   unsigned long seed;
   uint8_t result;

@@ -9,12 +9,16 @@
 #define EF_CNTRL_OFFSET   3
 #define EF_PR_OFFSET      4
 #define EF_STATUS_OFFSET  5
+#define EF_GCLK_OFFSET    16324
 
 void main(void)
 {
   // Set GPIO to ouput
   *(ADR_CSR + CSR_GPOE_OFFSET) = 0xFF;
   GPO = 0;
+
+  // Enable clock
+  *(ADR_EF_SPI + EF_GCLK_OFFSET) = 0x1UL;
 
   // Setup SPI
   // CPHA 0, CPOL 0
