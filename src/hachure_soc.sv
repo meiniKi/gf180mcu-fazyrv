@@ -783,6 +783,10 @@ EF_SPI_WB #(
   .CDW ( 8 ),
   .FAW ( 4 )
 ) i_EF_SPI_WB (
+  `ifdef USE_POWER_PINS
+  .vpwr   ( VDD             ),
+  .vgnd   ( VSS             ),
+  `endif
   .clk_i  ( clk_p2          ),
   .rst_i  ( ~rst_p_n        ),
   .adr_i  ( wb_p_efspi_adr  ),
