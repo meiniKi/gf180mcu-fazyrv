@@ -13,8 +13,8 @@ module chip_core #(
   inout wire VSS,
   `endif
   
-  input  logic clk,       // clock
-  input  logic rst_n,     // reset (active low)
+  input  wire clk,       // clock
+  input  wire rst_n,     // reset (active low)
   
   input  wire [NUM_INPUT_PADS-1:0] input_in,   // Input value
   output wire [NUM_INPUT_PADS-1:0] input_pu,   // Pull-up

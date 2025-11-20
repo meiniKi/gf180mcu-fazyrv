@@ -8,3 +8,4 @@ wb.core
 .venv
 .vscode
 run_backup
+img/
