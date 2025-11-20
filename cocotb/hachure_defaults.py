@@ -94,11 +94,11 @@ def sim_setup(test_module, firmware):
         proj_path / "../ip/rggen-verilog-rtl"
     ]
 
+    # SCL models
+    sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / "primitives.v")
+    sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / f"{scl}.v")
+    
     if gl:
-        # SCL models
-        sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / f"{scl}.v")
-        sources.append(Path(pdk_root) / pdk / "libs.ref" / scl / "verilog" / "primitives.v")
-
         # We use the powered netlist
         sources.append(proj_path / f"../final/pnl/chip_top.pnl.v")
         
@@ -236,6 +236,7 @@ def sim_setup(test_module, firmware):
     runner.test(
         hdl_toplevel=hdl_toplevel,
         test_module=test_module,
+        results_xml=test_module.lower() + "_results.xml",
         plusargs=plusargs,
         waves=True,
     )
