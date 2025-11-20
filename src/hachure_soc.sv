@@ -154,6 +154,15 @@ logic rst_c_frv_4ccx_n;
 logic rst_c_frv_1bram_n;
 logic rst_c_frv_8bram_n;
 
+// Sync clock gating such that once controller cannot block the bus
+logic en_frv1_sync_r;
+logic en_frv2_sync_r;
+logic en_frv4_sync_r;
+logic en_frv8_sync_r;
+logic en_frv4ccx_sync_r;
+logic en_frv1bram_sync_r;
+logic en_frv8bram_sync_r;
+
 //  m     m   "                        
 //  #  #  # mmm     m mm   mmm    mmm  
 //  " #"# #   #     #"  " #"  #  #   " 
@@ -187,8 +196,8 @@ logic [31:0] wb_c_frv_1_adr;
 logic [31:0] wb_c_frv_1_rdat;
 logic [31:0] wb_c_frv_1_wdat;
 
-assign wb_c_frv_1_cyc  = wb_c_frv_1_imem_cyc | wb_c_frv_1_dmem_cyc;
-assign wb_c_frv_1_stb  = wb_c_frv_1_imem_stb | wb_c_frv_1_dmem_stb;
+assign wb_c_frv_1_cyc  = en_frv1_sync_r & (wb_c_frv_1_imem_cyc | wb_c_frv_1_dmem_cyc);
+assign wb_c_frv_1_stb  = en_frv1_sync_r & (wb_c_frv_1_imem_stb | wb_c_frv_1_dmem_stb);
 assign wb_c_frv_1_be   = wb_c_frv_1_imem_stb ? 4'b1111 : wb_c_frv_1_dmem_be;
 assign wb_c_frv_1_adr  = wb_c_frv_1_imem_stb ? wb_c_frv_1_imem_adr : wb_c_frv_1_dmem_adr;
 assign wb_c_frv_1_we   = wb_c_frv_1_dmem_stb & wb_c_frv_1_dmem_we;
@@ -225,8 +234,8 @@ logic [31:0] wb_c_frv_1bram_adr;
 logic [31:0] wb_c_frv_1bram_rdat;
 logic [31:0] wb_c_frv_1bram_wdat;
 
-assign wb_c_frv_1bram_cyc  = wb_c_frv_1bram_imem_cyc | wb_c_frv_1bram_dmem_cyc;
-assign wb_c_frv_1bram_stb  = wb_c_frv_1bram_imem_stb | wb_c_frv_1bram_dmem_stb;
+assign wb_c_frv_1bram_cyc  = en_frv1bram_sync_r & (wb_c_frv_1bram_imem_cyc | wb_c_frv_1bram_dmem_cyc);
+assign wb_c_frv_1bram_stb  = en_frv1bram_sync_r & (wb_c_frv_1bram_imem_stb | wb_c_frv_1bram_dmem_stb);
 assign wb_c_frv_1bram_be   = wb_c_frv_1bram_imem_stb ? 4'b1111 : wb_c_frv_1bram_dmem_be;
 assign wb_c_frv_1bram_adr  = wb_c_frv_1bram_imem_stb ? wb_c_frv_1bram_imem_adr : wb_c_frv_1bram_dmem_adr;
 assign wb_c_frv_1bram_we   = wb_c_frv_1bram_dmem_stb & wb_c_frv_1bram_dmem_we;
@@ -263,8 +272,8 @@ logic [31:0] wb_c_frv_2_adr;
 logic [31:0] wb_c_frv_2_rdat;
 logic [31:0] wb_c_frv_2_wdat;
 
-assign wb_c_frv_2_cyc  = wb_c_frv_2_imem_cyc | wb_c_frv_2_dmem_cyc;
-assign wb_c_frv_2_stb  = wb_c_frv_2_imem_stb | wb_c_frv_2_dmem_stb;
+assign wb_c_frv_2_cyc  = en_frv2_sync_r & (wb_c_frv_2_imem_cyc | wb_c_frv_2_dmem_cyc);
+assign wb_c_frv_2_stb  = en_frv2_sync_r & (wb_c_frv_2_imem_stb | wb_c_frv_2_dmem_stb);
 assign wb_c_frv_2_be   = wb_c_frv_2_imem_stb ? 4'b1111 : wb_c_frv_2_dmem_be;
 assign wb_c_frv_2_adr  = wb_c_frv_2_imem_stb ? wb_c_frv_2_imem_adr : wb_c_frv_2_dmem_adr;
 assign wb_c_frv_2_we   = wb_c_frv_2_dmem_stb & wb_c_frv_2_dmem_we;
@@ -301,8 +310,8 @@ logic [31:0] wb_c_frv_4_adr;
 logic [31:0] wb_c_frv_4_rdat;
 logic [31:0] wb_c_frv_4_wdat;
 
-assign wb_c_frv_4_cyc  = wb_c_frv_4_imem_cyc | wb_c_frv_4_dmem_cyc;
-assign wb_c_frv_4_stb  = wb_c_frv_4_imem_stb | wb_c_frv_4_dmem_stb;
+assign wb_c_frv_4_cyc  = en_frv4_sync_r & (wb_c_frv_4_imem_cyc | wb_c_frv_4_dmem_cyc);
+assign wb_c_frv_4_stb  = en_frv4_sync_r & (wb_c_frv_4_imem_stb | wb_c_frv_4_dmem_stb);
 assign wb_c_frv_4_be   = wb_c_frv_4_imem_stb ? 4'b1111 : wb_c_frv_4_dmem_be;
 assign wb_c_frv_4_adr  = wb_c_frv_4_imem_stb ? wb_c_frv_4_imem_adr : wb_c_frv_4_dmem_adr;
 assign wb_c_frv_4_we   = wb_c_frv_4_dmem_stb & wb_c_frv_4_dmem_we;
@@ -339,8 +348,8 @@ logic [31:0] wb_c_frv_8_adr;
 logic [31:0] wb_c_frv_8_rdat;
 logic [31:0] wb_c_frv_8_wdat;
 
-assign wb_c_frv_8_cyc  = wb_c_frv_8_imem_cyc | wb_c_frv_8_dmem_cyc;
-assign wb_c_frv_8_stb  = wb_c_frv_8_imem_stb | wb_c_frv_8_dmem_stb;
+assign wb_c_frv_8_cyc  = en_frv8_sync_r & (wb_c_frv_8_imem_cyc | wb_c_frv_8_dmem_cyc);
+assign wb_c_frv_8_stb  = en_frv8_sync_r & (wb_c_frv_8_imem_stb | wb_c_frv_8_dmem_stb);
 assign wb_c_frv_8_be   = wb_c_frv_8_imem_stb ? 4'b1111 : wb_c_frv_8_dmem_be;
 assign wb_c_frv_8_adr  = wb_c_frv_8_imem_stb ? wb_c_frv_8_imem_adr : wb_c_frv_8_dmem_adr;
 assign wb_c_frv_8_we   = wb_c_frv_8_dmem_stb & wb_c_frv_8_dmem_we;
@@ -376,8 +385,8 @@ logic [31:0] wb_c_frv_8bram_adr;
 logic [31:0] wb_c_frv_8bram_rdat;
 logic [31:0] wb_c_frv_8bram_wdat;
 
-assign wb_c_frv_8bram_cyc  = wb_c_frv_8bram_imem_cyc | wb_c_frv_8bram_dmem_cyc;
-assign wb_c_frv_8bram_stb  = wb_c_frv_8bram_imem_stb | wb_c_frv_8bram_dmem_stb;
+assign wb_c_frv_8bram_cyc  = en_frv8bram_sync_r & (wb_c_frv_8bram_imem_cyc | wb_c_frv_8bram_dmem_cyc);
+assign wb_c_frv_8bram_stb  = en_frv8bram_sync_r & (wb_c_frv_8bram_imem_stb | wb_c_frv_8bram_dmem_stb);
 assign wb_c_frv_8bram_be   = wb_c_frv_8bram_imem_stb ? 4'b1111 : wb_c_frv_8bram_dmem_be;
 assign wb_c_frv_8bram_adr  = wb_c_frv_8bram_imem_stb ? wb_c_frv_8bram_imem_adr : wb_c_frv_8bram_dmem_adr;
 assign wb_c_frv_8bram_we   = wb_c_frv_8bram_dmem_stb & wb_c_frv_8bram_dmem_we;
@@ -413,8 +422,8 @@ logic [31:0] wb_c_frv_4ccx_adr;
 logic [31:0] wb_c_frv_4ccx_rdat;
 logic [31:0] wb_c_frv_4ccx_wdat;
 
-assign wb_c_frv_4ccx_cyc  = wb_c_frv_4ccx_imem_cyc | wb_c_frv_4ccx_dmem_cyc;
-assign wb_c_frv_4ccx_stb  = wb_c_frv_4ccx_imem_stb | wb_c_frv_4ccx_dmem_stb;
+assign wb_c_frv_4ccx_cyc  = en_frv4ccx_sync_r & (wb_c_frv_4ccx_imem_cyc | wb_c_frv_4ccx_dmem_cyc);
+assign wb_c_frv_4ccx_stb  = en_frv4ccx_sync_r & (wb_c_frv_4ccx_imem_stb | wb_c_frv_4ccx_dmem_stb);
 assign wb_c_frv_4ccx_be   = wb_c_frv_4ccx_imem_stb ? 4'b1111 : wb_c_frv_4ccx_dmem_be;
 assign wb_c_frv_4ccx_adr  = wb_c_frv_4ccx_imem_stb ? wb_c_frv_4ccx_imem_adr : wb_c_frv_4ccx_dmem_adr;
 assign wb_c_frv_4ccx_we   = wb_c_frv_4ccx_dmem_stb & wb_c_frv_4ccx_dmem_we;
@@ -581,14 +590,6 @@ assign rst_c_frv_8bram_n  = rst_dly_n;
 
 localparam N_CLOCKS = 10;
 
-// Sync clock gating such that once controller cannot block the bus
-logic en_frv1_sync_r;
-logic en_frv2_sync_r;
-logic en_frv4_sync_r;
-logic en_frv8_sync_r;
-logic en_frv4ccx_sync_r;
-logic en_frv1bram_sync_r;
-logic en_frv8bram_sync_r;
 
 // We don't have any IO left, so we take the
 // CCX result if the CCX variant is not enabled
@@ -964,7 +965,9 @@ tiny_wb_dma_oled_spi #(
 //          #    " #    # #    #
 //                     
                                     
-localparam RAM_DEPTH = 2048; // words  
+//localparam RAM_DEPTH = 2048; // words  
+
+localparam RAM_DEPTH = 3*512; // words  
 
 wb_ram #( .DEPTH( RAM_DEPTH ) ) i_wb_ram (
   `ifdef USE_POWER_PINS
