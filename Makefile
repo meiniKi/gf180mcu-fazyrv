@@ -24,7 +24,6 @@ clone-pdk: ## Clone the GF180MCU PDK repository
 	git clone https://github.com/wafer-space/gf180mcu.git $(MAKEFILE_DIR)/gf180mcu --depth 1 --branch ${PDK_TAG}
 .PHONY: clone-pdk
 
-
 librelane-macro-test:
 	$(MAKE) -C macros/frv_1 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro
 .PHONY: librelane-macro-test
@@ -58,17 +57,17 @@ librelane-macro-nodrc:
 	$(MAKE) -C macros/frv_8bram PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc
 .PHONY: librelane-macro-nodrc
 
-librelane-macro-nodrv-fast:
-	$(MAKE) -C macros/frv_1 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc &
-	$(MAKE) -C macros/frv_2 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc &
-	$(MAKE) -C macros/frv_4 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc &
-	$(MAKE) -C macros/frv_8 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc &
-	$(MAKE) -C macros/frv_4ccx PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc &
-	$(MAKE) -C macros/frv_1bram PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc &
-	$(MAKE) -C macros/frv_8bram PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro-nodrc
-.PHONY: librelane-macro-nodrc-fast
+librelane-macro-fast:
+	$(MAKE) -C macros/frv_1 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro &
+	$(MAKE) -C macros/frv_2 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro &
+	$(MAKE) -C macros/frv_4 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro &
+	$(MAKE) -C macros/frv_8 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro &
+	$(MAKE) -C macros/frv_4ccx PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro &
+	$(MAKE) -C macros/frv_1bram PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro &
+	$(MAKE) -C macros/frv_8bram PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" macro
+.PHONY: librelane-macro-fast
 
-copy-macro:
+copy-macro: librelane-macro-fast
 	$(MAKE) -C macros/frv_1 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" copy && \
 	$(MAKE) -C macros/frv_2 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" copy && \
 	$(MAKE) -C macros/frv_4 PDK_ROOT="$(PDK_ROOT)" PDK="${PDK}" copy && \
@@ -104,7 +103,7 @@ librelane-macro-openroad:
 .PHONY: librelane-macro-openroad
 
 
-librelane: ## Run LibreLane flow (synthesis, PnR, verification)
+librelane: copy-macro ## Run LibreLane flow (synthesis, PnR, verification)
 	librelane librelane/config.yaml --pdk ${PDK} --pdk-root ${PDK_ROOT} --manual-pdk
 .PHONY: librelane
 
