@@ -582,9 +582,11 @@ PDN_CFG: dir::pdn_cfg.tcl
 LVS_FLATTEN_CELLS:
 - gf180mcu_ws_ip__id
 - gf180mcu_ws_ip__logo
+- gf180mcu_hachure_ip__logo
 
 # gf180mcu_ws_ip__id/logo has no ports and components
 # therefore make it an abstract cell in the layout
 MAGIC_EXT_ABSTRACT_CELLS:
 - gf180mcu_ws_ip__id
 - gf180mcu_ws_ip__logo
+- gf180mcu_hachure_ip__logo
